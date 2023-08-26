@@ -1,4 +1,4 @@
-import 'package:app_mitigasi_bencana/education.dart';
+import 'package:app_mitigasi_bencana/books.dart';
 import 'package:app_mitigasi_bencana/page1.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -50,7 +50,19 @@ class HomePage extends StatelessWidget {
     return Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
-            border: Border.all(color: Colors.grey, width: 2)),
+            border: Border.all(color: Colors.black.withOpacity(.8), width: 1),
+            boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 3,
+              offset: Offset(0, 2),
+            ),
+            BoxShadow(
+              color: Colors.white,
+            ),
+          ],
+            ),
         child: MaterialButton(
           onPressed: () {
             switch (page) {
@@ -79,7 +91,7 @@ class HomePage extends StatelessWidget {
               ),
               Text(
                 name,
-                style: TextStyle(fontSize: 17),
+                style: TextStyle(fontSize: 17, color: Colors.black87),
               ),
             ],
           ),
