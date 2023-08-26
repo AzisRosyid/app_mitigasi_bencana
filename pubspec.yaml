@@ -1,0 +1,35 @@
+name: app_mitigasi_bencana
+description: A new Flutter project.
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.1.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  url_launcher: ^6.0.12
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - /assets/images/report.png
+    - /assets/images/map.png
+    - /assets/images/book.png
+    - /assets/images/books/book1.png
+    - /assets/pdf/book1.pdf
+    - /assets/images/books/book2.png
+    - /assets/pdf/book2.pdf
+    - /assets/images/books/book3.png
+    - /assets/pdf/book3.pdf
+    - /assets/images/books/book4.png
+    - /assets/pdf/book4.pdf
+    - /assets/images/books/book5.png
+    - /assets/pdf/book5.pdf
+    
