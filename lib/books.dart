@@ -48,7 +48,7 @@ class Education extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Book List'),
+        title: Text('E-Book Edukasi'),
       ),
       body: BookGrid(books),
     );
@@ -93,7 +93,8 @@ class BookItem extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => ReadBook(
-                  pdfAssetPath: 'assets/pdf/book1.pdf', // Replace with your asset PDF path
+                  title: book.title,
+                  pdfPath: book.pdfPath, 
                 ),
               ),
             );
