@@ -14,7 +14,7 @@ class MainApp extends StatelessWidget {
       title: 'Convex Buttom Bar',
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: HomePage(),
+        body: Home(),
       ),
     );
   }

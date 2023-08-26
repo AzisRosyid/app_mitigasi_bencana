@@ -1,10 +1,11 @@
 import 'package:app_mitigasi_bencana/books.dart';
+import 'package:app_mitigasi_bencana/map.dart';
 import 'package:app_mitigasi_bencana/page1.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class Home extends StatelessWidget {
+  const Home({super.key});
 
   Widget _listItemH(@required BuildContext context, @required Color color,
       @required String title, @required String subtitle) {
@@ -68,7 +69,7 @@ class HomePage extends StatelessWidget {
             switch (page) {
               case 0:
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Page1();
+                  return Navigasi();
                 }));
               case 1:
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
