@@ -116,17 +116,12 @@ class Home extends StatelessWidget {
   }
 
   void _openWhatsAppChat() async {
-    String phoneNumber =
-        '+1234567890'; // Replace with the recipient's phone number
+   // String message = Uri.encodeComponent("Hello, I'm reaching out from my Flutter app!");
+    final Uri phoneNumber = Uri.parse('tel:+123456789');
+    final Uri whatsappUrl = Uri.parse('https://wa.me/0895421891378');
 
-    // Replace "Hello" with your desired message
-    String message =
-        Uri.encodeComponent("Hello, I'm reaching out from my Flutter app!");
-
-    final whatsappUrl = "whatsapp://send?phone=$phoneNumber&text=$message";
-
-    if (await canLaunch(whatsappUrl)) {
-      await launch(whatsappUrl);
+    if (await canLaunchUrl(whatsappUrl)) {
+      await launchUrl(whatsappUrl);
     } else {
       throw 'Could not launch $whatsappUrl';
     }

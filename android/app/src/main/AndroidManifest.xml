@@ -1,6 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW"/>
+            <data android:scheme="tel"/>
+        </intent>
+    </queries>
     <application
-        android:label="app_mitigasi_bencana"
+        android:label="Edu MIT"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
