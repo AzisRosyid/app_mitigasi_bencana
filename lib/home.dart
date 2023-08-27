@@ -1,5 +1,5 @@
 import 'package:app_mitigasi_bencana/books.dart';
-import 'package:app_mitigasi_bencana/map.dart';
+import 'package:app_mitigasi_bencana/navigasi.dart';
 import 'package:app_mitigasi_bencana/page1.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -7,40 +7,56 @@ import 'package:url_launcher/url_launcher.dart';
 class Home extends StatelessWidget {
   const Home({super.key});
 
-  Widget _listItemH(@required BuildContext context, @required Color color,
-      @required String title, @required String subtitle) {
-    return Container(
-      alignment: Alignment.centerLeft,
-      margin: EdgeInsets.symmetric(horizontal: 10.0),
-      height: 120,
-      width: 240,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      child: MaterialButton(
-        padding: EdgeInsets.only(left: 20),
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return Page1();
-          }));
-        },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              title,
-              style: TextStyle(fontSize: 22, color: Colors.white),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Text(
-              subtitle,
-              style: TextStyle(fontSize: 19, color: Colors.white70),
-            )
+  Widget _listItemH(
+    @required BuildContext context,
+    @required Color color,
+    @required String title,
+    @required String subtitle,
+  ) {
+    return MaterialButton(
+      onPressed: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return Page1();
+        }));
+      },
+      padding: EdgeInsets.zero,
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 10.0),
+        height: 120,
+        width: 240,
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(15.0),
+          border:
+              Border.all(color: Colors.blueAccent, width: 1.0), // Add border
+          boxShadow: [
+            // BoxShadow(
+            //   color: Colors.grey.withOpacity(0.5), // Shadow color
+            //   spreadRadius: 2,
+            //   blurRadius: 5,
+            //   offset: Offset(0, 3), // Shadow position
+            // ),
           ],
+        ),
+        child: Container(
+          padding: EdgeInsets.only(left: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                title,
+                style: TextStyle(fontSize: 22, color: Colors.white),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                subtitle,
+                style: TextStyle(fontSize: 19, color: Colors.white70),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -50,9 +66,9 @@ class Home extends StatelessWidget {
       @required String image, @required String name) {
     return Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.0),
-            border: Border.all(color: Colors.black.withOpacity(.8), width: 1),
-            boxShadow: [
+          borderRadius: BorderRadius.circular(10.0),
+          border: Border.all(color: Colors.black.withOpacity(.8), width: 1),
+          boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
               spreadRadius: 2,
@@ -63,7 +79,7 @@ class Home extends StatelessWidget {
               color: Colors.white,
             ),
           ],
-            ),
+        ),
         child: MaterialButton(
           onPressed: () {
             switch (page) {
@@ -198,10 +214,10 @@ class Home extends StatelessWidget {
                             children: [
                               _opsiMenuItem(context, 0, "assets/images/map.png",
                                   "Peta Navigasi"),
-                              _opsiMenuItem(
-                                  context, 1, "assets/images/book.png", "Edukasi"),
-                              _opsiMenuItem(context, 2, "assets/images/report.png",
-                                  "Pelaporan TP")
+                              _opsiMenuItem(context, 1,
+                                  "assets/images/book.png", "Edukasi"),
+                              _opsiMenuItem(context, 2,
+                                  "assets/images/report.png", "Pelaporan TP")
                             ],
                           ),
                         ),
