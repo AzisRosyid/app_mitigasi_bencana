@@ -1,5 +1,6 @@
 import 'package:app_mitigasi_bencana/books.dart';
 import 'package:app_mitigasi_bencana/navigasi.dart';
+import 'package:app_mitigasi_bencana/order_traking_page.dart';
 import 'package:app_mitigasi_bencana/page1.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -16,7 +17,7 @@ class Home extends StatelessWidget {
     return MaterialButton(
       onPressed: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return Page1();
+          return OrderTrackingPage();
         }));
       },
       padding: EdgeInsets.zero,
