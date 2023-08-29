@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   url_launcher: ^6.0.12
-  syncfusion_flutter_pdfviewer: ^22.2.8
+  syncfusion_flutter_pdfviewer: ^22.2.10
   cupertino_icons: ^1.0.2
   flutter_polyline_points: ^2.0.0
   google_maps_flutter: ^2.4.0

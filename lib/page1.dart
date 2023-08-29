@@ -8,6 +8,7 @@ class Page1 extends StatefulWidget {
 }
 
 class _Page1State extends State<Page1> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,8 +20,7 @@ class _Page1State extends State<Page1> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             MaterialButton(
-              onPressed: () {
-              },
+              onPressed: () {},
               color: Colors.red,
               child: Text(
                 'Ke Page 2 ===>',

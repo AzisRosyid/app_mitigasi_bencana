@@ -15,42 +15,76 @@ class MapSampleState extends State<Navigasi> {
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 
-  // static const CameraPosition _kGooglePlex = CameraPosition(
-  //   target: LatLng(37.42796133580664, -122.085749655962),
-  //   zoom: 14.4746,
-  // );
+  static const LatLng sourceLocation = LatLng(-7.795580, 110.369492);
+  static const LatLng destination = LatLng(-7.795780, 110.359492);
 
-  // static const CameraPosition _kLake = CameraPosition(
-  //     bearing: 192.8334901395799,
-  //     target: LatLng(37.43296265331129, -122.08832357078792),
-  //     tilt: 59.440717697143555,
-  //     zoom: 19.151926040649414);
+  final Set<Polyline> polylines = {};
 
-  static const LatLng sourceLocation = LatLng(37.33500926, -122.03272188);
-  static const LatLng destination = LatLng(37.3342933, -122.06600055);
-
-  List<LatLng> polylineCoordinates = [];
-
-  void getPolyPoints() async {
+  void createPolylines() async {
     PolylinePoints polylinePoints = PolylinePoints();
-
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-        google_api_key,
-        PointLatLng(sourceLocation.latitude, sourceLocation.longitude),
-        PointLatLng(destination.latitude, destination.longitude));
+      google_api_key,
+      PointLatLng(sourceLocation.latitude, sourceLocation.longitude),
+      PointLatLng(destination.latitude, destination.longitude),
+    );
 
-    print(result.points.isNotEmpty);
     if (result.points.isNotEmpty) {
-      result.points.forEach((PointLatLng point) =>
-          polylineCoordinates.add(LatLng(point.latitude, point.longitude)));
-      setState(() {});
+      List<LatLng> polylineCoordinates = [];
+      result.points.forEach(
+        (PointLatLng point) =>
+            polylineCoordinates.add(LatLng(point.latitude, point.longitude)),
+      );
+
+      setState(() {
+        polylines.add(
+          Polyline(
+            polylineId: PolylineId('route'),
+            color: Colors.blue,
+            points: polylineCoordinates,
+            width: 5,
+          ),
+        );
+      });
     }
+  }
+
+  final Set<Marker> markers = {};
+  int markerId = 0;
+  bool isMarkerTapped = false;
+
+  void onMarkerTapped(int id) {
+    setState(() {
+      markerId = id - 1;
+      isMarkerTapped = true;
+    });
   }
 
   @override
   void initState() {
-    getPolyPoints();
+    markers.add(
+      Marker(
+        markerId: MarkerId("source"),
+        position: sourceLocation,
+        onTap: () => onMarkerTapped(1),
+      ),
+    );
+
+    markers.add(
+      Marker(
+        markerId: MarkerId("destination"),
+        position: destination,
+        onTap: () => onMarkerTapped(2),
+      ),
+    );
+
+    createPolylines();
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant Navigasi oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    createPolylines();
   }
 
   @override
@@ -62,63 +96,40 @@ class MapSampleState extends State<Navigasi> {
       body: Stack(
         children: [
           GoogleMap(
-            mapType: MapType.terrain,
             initialCameraPosition:
                 CameraPosition(target: sourceLocation, zoom: 14.5),
-            polylines: {
-              Polyline(
-                  polylineId: PolylineId("route"),
-                  points: polylineCoordinates,
-                  color: Theme.of(context).primaryColor,
-                  width: 6),
-            },
-            markers: {
-              Marker(
-                markerId: MarkerId("source"),
-                position: sourceLocation,
-              ),
-              Marker(markerId: MarkerId("destination"), position: destination)
-            },
+            polylines: polylines,
+            markers: markers.toSet(),
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);
             },
           ),
-          Positioned(
-            top: 16, // Adjust the position as needed
-            right: 16, // Adjust the position as needed
-            child: Container(
-              padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    spreadRadius: 2,
-                    blurRadius: 4,
-                  ),
-                ],
-              ),
-              child: Text(
-                'Legenda (Keterangan)',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+          if (isMarkerTapped && markerId >= 0)
+            Positioned(
+              top: 16, // Adjust the position as needed
+              right: 16, // Adjust the position as needed
+              child: Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 2,
+                      blurRadius: 4,
+                    ),
+                  ],
+                ),
+                child: Text(
+                  'Latitude: ${markers.toList()[markerId].position.latitude.toStringAsFixed(6)}\n'
+                  'Longitude: ${markers.toList()[markerId].position.longitude.toStringAsFixed(6)}',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                ),
               ),
             ),
-          ),
         ],
       ),
-      // floatingActionButton: FloatingActionButton.extended(
-      //   onPressed: _goToTheLake,
-      //   label: const Text('To the lake!'),
-      //   icon: const Icon(Icons.directions_boat),
-      // ),
     );
   }
-
-  // Future<void> _goToTheLake() async {
-  //   final GoogleMapController controller = await _controller.future;
-  //   await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
-  // }
 }
-
-void main() => runApp(MaterialApp(home: Navigasi()));
