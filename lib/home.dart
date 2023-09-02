@@ -27,67 +27,68 @@ class WaveClipper extends CustomClipper<Path> {
 class Home extends StatelessWidget {
   const Home({super.key});
 
-  Widget _listItemH(
-    @required BuildContext context,
-    @required Color color,
-    @required String title,
-    @required String subtitle,
-  ) {
-    return MaterialButton(
-      onPressed: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return OrderTrackingPage();
-        }));
-      },
-      padding: EdgeInsets.zero,
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10.0),
-        height: 120,
-        width: 240,
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(15.0),
-          border:
-              Border.all(color: Colors.blueAccent, width: 1.0), // Add border
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5), // Shadow color
-              spreadRadius: 2,
-              blurRadius: 5,
-              offset: Offset(0, 3), // Shadow position
-            ),
-          ],
-        ),
-        child: Container(
-          padding: EdgeInsets.only(left: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                title,
-                style: TextStyle(fontSize: 22, color: Colors.white),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Text(
-                subtitle,
-                style: TextStyle(fontSize: 19, color: Colors.white70),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget _listItemH(
+  //   @required BuildContext context,
+  //   @required Color color,
+  //   @required String title,
+  //   @required String subtitle,
+  // ) {
+  //   return MaterialButton(
+  //     onPressed: () {
+  //       Navigator.push(context, MaterialPageRoute(builder: (context) {
+  //         return OrderTrackingPage();
+  //       }));
+  //     },
+  //     padding: EdgeInsets.zero,
+  //     child: Container(
+  //       margin: EdgeInsets.symmetric(horizontal: 10.0),
+  //       height: 120,
+  //       width: 240,
+  //       decoration: BoxDecoration(
+  //         color: color,
+  //         borderRadius: BorderRadius.circular(15.0),
+  //         border:
+  //             Border.all(color: Colors.blueAccent, width: 1.0), // Add border
+  //         boxShadow: [
+  //           BoxShadow(
+  //             color: Colors.grey.withOpacity(0.5), // Shadow color
+  //             spreadRadius: 2,
+  //             blurRadius: 5,
+  //             offset: Offset(0, 3), // Shadow position
+  //           ),
+  //         ],
+  //       ),
+  //       child: Container(
+  //         padding: EdgeInsets.only(left: 20),
+  //         child: Column(
+  //           crossAxisAlignment: CrossAxisAlignment.start,
+  //           mainAxisAlignment: MainAxisAlignment.center,
+  //           children: [
+  //             Text(
+  //               title,
+  //               style: TextStyle(fontSize: 22, color: Colors.white),
+  //             ),
+  //             SizedBox(
+  //               height: 5,
+  //             ),
+  //             Text(
+  //               subtitle,
+  //               style: TextStyle(fontSize: 19, color: Colors.white70),
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _opsiMenuItem(@required BuildContext context, @required int page,
       @required String image, @required String name) {
     return Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: Colors.black.withOpacity(.8), width: 1),
+          border:
+              Border.all(color: Color(0xFF930000).withOpacity(.8), width: 2),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
@@ -121,14 +122,19 @@ class Home extends StatelessWidget {
               Container(
                 height: 60,
                 decoration: BoxDecoration(
-                    image: DecorationImage(image: AssetImage(image))),
+                    image: DecorationImage(
+                        image: AssetImage(image), fit: BoxFit.contain)),
               ),
               SizedBox(
                 height: 10,
               ),
               Text(
                 name,
-                style: TextStyle(fontSize: 17, color: Colors.black87),
+                style: TextStyle(
+                    fontSize: 17,
+                    color: Colors.black,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.bold),
               ),
             ],
           ),
@@ -182,39 +188,38 @@ class Home extends StatelessWidget {
               top: 120,
               left: 20,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                StrokeText(
-                  text: 'Edu MIT',
-                  textStyle: TextStyle(
-                    fontSize: 50,
-                    color: Color(0xFFC30000),
-                    fontFamily: 'Knewave',
-                  ),
-                  strokeWidth: 5,
-                  strokeColor: Colors.white,
-                ),
-                Padding(padding: EdgeInsets.all(4)),
-                StrokeText(
-                  text: 'Aplikasi Edukasi dan Mitigasi Bencana',
-                  textStyle: TextStyle(
-                    fontSize: 16,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black
-                  ),
-                  strokeWidth: 4,
-                  strokeColor: Colors.white,
-                )
-              ])),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    StrokeText(
+                      text: 'Edu MIT',
+                      textStyle: TextStyle(
+                        fontSize: 50,
+                        color: Color(0xFFC30000),
+                        fontFamily: 'Knewave',
+                      ),
+                      strokeWidth: 5,
+                      strokeColor: Colors.white,
+                    ),
+                    Padding(padding: EdgeInsets.all(4)),
+                    StrokeText(
+                      text: 'Aplikasi Edukasi dan Mitigasi Bencana',
+                      textStyle: TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                      strokeWidth: 4,
+                      strokeColor: Colors.white,
+                    )
+                  ])),
           Container(
-            margin: EdgeInsets.only(top: 280),
+            margin: EdgeInsets.only(top: 260),
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Container(
                 // Body
                 child: Container(
-                  height: 700,
+                  height: 750,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -224,86 +229,107 @@ class Home extends StatelessWidget {
                     ),
                   ),
                   child: ListView(
-                    padding: EdgeInsets.only(left: 15, right: 15, top: 30),
+                    padding: EdgeInsets.only(left: 15, right: 15, top: 20),
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.only(left: 8.0),
                         child: Text(
-                          "Histori Lokasi",
+                          "Peta",
                           style: TextStyle(
-                              fontSize: 19,
-                              color: Colors.black87,
-                              fontWeight: FontWeight.w500),
+                              fontSize: 23,
+                              decoration: TextDecoration.underline,
+                              decorationColor: Color(0xFF930000),
+                              color: Colors.black,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(left: 8, right: 8),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Padding(
-                            padding:
-                                EdgeInsets.only(left: 15, right: 15, top: 12),
-                            child: Row(
-                              children: [
-                                _listItemH(
-                                    context,
-                                    Theme.of(context).primaryColor,
-                                    "Hello World!",
-                                    "Hello"),
-                                _listItemH(
-                                    context,
-                                    Theme.of(context).primaryColor,
-                                    "Hello World!",
-                                    "World"),
-                                _listItemH(
-                                    context,
-                                    Theme.of(context).primaryColor,
-                                    "Hello World!",
-                                    "HW!")
-                              ],
+                        padding: EdgeInsets.only(left: 5, right: 5, top: 8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top: 0,
+                              ),
+                              child: Container(
+                                  height: 270,
+                                  width: double.infinity,
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        image: DecorationImage(
+                                            image: AssetImage(
+                                                "assets/images/map.png"),
+                                            fit: BoxFit.cover),
+                                        border: Border.all(
+                                            color: Color(0xFF930000)
+                                                .withOpacity(.8),
+                                            width: 2),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.5),
+                                            spreadRadius: 2,
+                                            blurRadius: 3,
+                                            offset: Offset(0, 2),
+                                          ),
+                                          BoxShadow(
+                                            color: Colors.white,
+                                          ),
+                                        ],
+                                      ),
+                                      child: MaterialButton(
+                                        onPressed: () {
+                                          Navigator.push(context,
+                                              MaterialPageRoute(
+                                                  builder: (context) {
+                                            return Navigasi();
+                                          }));
+                                        },
+                                      ))),
                             ),
-                          ),
+                          ],
                         ),
                       ),
                       Container(
                         padding: EdgeInsets.symmetric(
                           horizontal: 5,
-                          vertical: 30,
+                          vertical: 20,
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Opsi Menu',
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.black),
+                              // Menu
+                              "Menu",
+                              style: TextStyle(
+                                  fontSize: 23,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: Color(0xFF930000),
+                                  color: Colors.black,
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.bold),
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                top: 20,
-                              ),
-                              child: Container(
-                                height: 300,
-                                child: GridView.count(
-                                  crossAxisCount: 2,
-                                  crossAxisSpacing: 12,
-                                  mainAxisSpacing: 8,
-                                  childAspectRatio: 1.30,
-                                  children: [
-                                    _opsiMenuItem(
-                                        context,
-                                        0,
-                                        "assets/images/map.png",
-                                        "Peta Navigasi"),
-                                    _opsiMenuItem(context, 1,
-                                        "assets/images/book.png", "Edukasi"),
-                                    _opsiMenuItem(
-                                        context,
-                                        2,
-                                        "assets/images/report.png",
-                                        "Pelaporan TP")
-                                  ],
-                                ),
+                            Container(
+                              // Menu Item
+                              height: 140,
+                              child: GridView.count(
+                                padding: EdgeInsets.only(top: 8, bottom: 8),
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 12,
+                                mainAxisSpacing: 8,
+                                childAspectRatio: 1.30,
+                                children: [
+                                  _opsiMenuItem(context, 1,
+                                      "assets/images/book.png", "Edukasi"),
+                                  _opsiMenuItem(
+                                      context,
+                                      2,
+                                      "assets/images/report.png",
+                                      "Pelaporan TP")
+                                ],
                               ),
                             ),
                           ],
