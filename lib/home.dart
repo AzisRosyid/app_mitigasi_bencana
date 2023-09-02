@@ -1,9 +1,28 @@
 import 'package:app_mitigasi_bencana/books.dart';
 import 'package:app_mitigasi_bencana/navigasi.dart';
 import 'package:app_mitigasi_bencana/order_traking_page.dart';
-import 'package:app_mitigasi_bencana/page1.dart';
 import 'package:flutter/material.dart';
+import 'package:stroke_text/stroke_text.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+class WaveClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    final path = Path();
+    path.lineTo(0, 0);
+    path.lineTo(0, size.height / 2);
+    path.cubicTo(size.width / 2.6, (size.height / 5), size.width / 1.4,
+        size.height * 1.4, size.width * 1.02, size.height * .75);
+    path.lineTo(size.width, size.height / 1.5);
+    path.lineTo(size.width, 0);
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return true;
+  }
+}
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -31,12 +50,12 @@ class Home extends StatelessWidget {
           border:
               Border.all(color: Colors.blueAccent, width: 1.0), // Add border
           boxShadow: [
-            // BoxShadow(
-            //   color: Colors.grey.withOpacity(0.5), // Shadow color
-            //   spreadRadius: 2,
-            //   blurRadius: 5,
-            //   offset: Offset(0, 3), // Shadow position
-            // ),
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5), // Shadow color
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: Offset(0, 3), // Shadow position
+            ),
           ],
         ),
         child: Container(
@@ -117,7 +136,7 @@ class Home extends StatelessWidget {
   }
 
   void _openWhatsAppChat() async {
-   // String message = Uri.encodeComponent("Hello, I'm reaching out from my Flutter app!");
+    // String message = Uri.encodeComponent("Hello, I'm reaching out from my Flutter app!");
     final Uri phoneNumber = Uri.parse('tel:+123456789');
     final Uri whatsappUrl = Uri.parse('https://wa.me/0895421891378');
 
@@ -131,99 +150,173 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Theme.of(context).primaryColor,
-        appBar: AppBar(
-          elevation: 0.0,
-          backgroundColor: Theme.of(context).primaryColor,
-          title: Text(
-            "Mitigasi Bencana",
-            style: TextStyle(fontSize: 23),
-          ),
-          centerTitle: true,
-        ),
-        body: Container(
-          child: Container(
-            height: 800,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30),
-              ),
+      backgroundColor: Theme.of(context).primaryColor,
+      body: Stack(
+        children: [
+          Container(
+            margin:
+                EdgeInsets.only(top: 10.0), // Adjust the top margin as needed
+            child: Image.asset(
+              'assets/images/logo.jpg', // Replace with your image path
+              fit: BoxFit
+                  .contain, // Make the image fit within the phone's width without cropping
             ),
-            child: ListView(
-              padding: EdgeInsets.only(left: 15, right: 15, top: 30),
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Histori Lokasi",
-                    style: TextStyle(
-                        fontSize: 19,
-                        color: Colors.black87,
-                        fontWeight: FontWeight.w500),
+          ),
+          ClipPath(
+              child: Container(
+                  color: Colors.white,
+                  height: 160.0,
+                  child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              colors: [
+                            Color(0xFFA30000),
+                            Color(0xFFC30000),
+                          ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight)))),
+              clipper: WaveClipper()),
+          // Text Overlaid on Background
+          Positioned(
+              top: 120,
+              left: 20,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                StrokeText(
+                  text: 'Edu MIT',
+                  textStyle: TextStyle(
+                    fontSize: 50,
+                    color: Color(0xFFC30000),
+                    fontFamily: 'Knewave',
                   ),
+                  strokeWidth: 5,
+                  strokeColor: Colors.white,
                 ),
-                Container(
-                  margin: EdgeInsets.only(left: 8, right: 8),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 15, right: 15, top: 12),
-                      child: Row(
-                        children: [
-                          _listItemH(context, Theme.of(context).primaryColor,
-                              "Hello World!", "Hello"),
-                          _listItemH(context, Theme.of(context).primaryColor,
-                              "Hello World!", "World"),
-                          _listItemH(context, Theme.of(context).primaryColor,
-                              "Hello World!", "HW!")
-                        ],
-                      ),
+                Padding(padding: EdgeInsets.all(4)),
+                StrokeText(
+                  text: 'Aplikasi Edukasi dan Mitigasi Bencana',
+                  textStyle: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black
+                  ),
+                  strokeWidth: 4,
+                  strokeColor: Colors.white,
+                )
+              ])),
+          Container(
+            margin: EdgeInsets.only(top: 280),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                // Body
+                child: Container(
+                  height: 700,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
                     ),
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 5,
-                    vertical: 30,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: ListView(
+                    padding: EdgeInsets.only(left: 15, right: 15, top: 30),
                     children: [
-                      Text(
-                        'Opsi Menu',
-                        style: TextStyle(fontSize: 20, color: Colors.black),
-                      ),
                       Padding(
-                        padding: EdgeInsets.only(
-                          top: 20,
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "Histori Lokasi",
+                          style: TextStyle(
+                              fontSize: 19,
+                              color: Colors.black87,
+                              fontWeight: FontWeight.w500),
                         ),
-                        child: Container(
-                          height: 300,
-                          child: GridView.count(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 12,
-                            mainAxisSpacing: 8,
-                            childAspectRatio: 1.30,
-                            children: [
-                              _opsiMenuItem(context, 0, "assets/images/map.png",
-                                  "Peta Navigasi"),
-                              _opsiMenuItem(context, 1,
-                                  "assets/images/book.png", "Edukasi"),
-                              _opsiMenuItem(context, 2,
-                                  "assets/images/report.png", "Pelaporan TP")
-                            ],
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: 8, right: 8),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Padding(
+                            padding:
+                                EdgeInsets.only(left: 15, right: 15, top: 12),
+                            child: Row(
+                              children: [
+                                _listItemH(
+                                    context,
+                                    Theme.of(context).primaryColor,
+                                    "Hello World!",
+                                    "Hello"),
+                                _listItemH(
+                                    context,
+                                    Theme.of(context).primaryColor,
+                                    "Hello World!",
+                                    "World"),
+                                _listItemH(
+                                    context,
+                                    Theme.of(context).primaryColor,
+                                    "Hello World!",
+                                    "HW!")
+                              ],
+                            ),
                           ),
                         ),
                       ),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 5,
+                          vertical: 30,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Opsi Menu',
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.black),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top: 20,
+                              ),
+                              child: Container(
+                                height: 300,
+                                child: GridView.count(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 12,
+                                  mainAxisSpacing: 8,
+                                  childAspectRatio: 1.30,
+                                  children: [
+                                    _opsiMenuItem(
+                                        context,
+                                        0,
+                                        "assets/images/map.png",
+                                        "Peta Navigasi"),
+                                    _opsiMenuItem(context, 1,
+                                        "assets/images/book.png", "Edukasi"),
+                                    _opsiMenuItem(
+                                        context,
+                                        2,
+                                        "assets/images/report.png",
+                                        "Pelaporan TP")
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
                     ],
                   ),
-                )
-              ],
+                ),
+              ),
             ),
           ),
-        ));
+        ],
+      ),
+    );
   }
 }
