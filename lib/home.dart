@@ -1,4 +1,5 @@
 import 'package:app_mitigasi_bencana/books.dart';
+import 'package:app_mitigasi_bencana/lapor.dart';
 import 'package:app_mitigasi_bencana/navigasi.dart';
 import 'package:app_mitigasi_bencana/order_traking_page.dart';
 import 'package:flutter/material.dart';
@@ -113,7 +114,9 @@ class Home extends StatelessWidget {
                   return Education();
                 }));
               case 2:
-                _openWhatsAppChat();
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return Lapor();
+                }));
             }
           },
           child: Column(
@@ -141,22 +144,22 @@ class Home extends StatelessWidget {
         ));
   }
 
-  void _openWhatsAppChat() async {
-    // String message = Uri.encodeComponent("Hello, I'm reaching out from my Flutter app!");
-    final Uri phoneNumber = Uri.parse('tel:+123456789');
-    final Uri whatsappUrl = Uri.parse('https://wa.me/0895421891378');
+  // void _openWhatsAppChat() async {
+  //   // String message = Uri.encodeComponent("Hello, I'm reaching out from my Flutter app!");
+  //   final Uri phoneNumber = Uri.parse('tel:+123456789');
+  //   final Uri whatsappUrl = Uri.parse('https://wa.me/0895421891378');
 
-    if (await canLaunchUrl(whatsappUrl)) {
-      await launchUrl(whatsappUrl);
-    } else {
-      throw 'Could not launch $whatsappUrl';
-    }
-  }
+  //   if (await canLaunchUrl(whatsappUrl)) {
+  //     await launchUrl(whatsappUrl);
+  //   } else {
+  //     throw 'Could not launch $whatsappUrl';
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           Container(
@@ -328,7 +331,7 @@ class Home extends StatelessWidget {
                                       context,
                                       2,
                                       "assets/images/report.png",
-                                      "Pelaporan TP")
+                                      "Lapor")
                                 ],
                               ),
                             ),

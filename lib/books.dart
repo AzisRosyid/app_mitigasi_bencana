@@ -1,57 +1,62 @@
+import 'package:app_mitigasi_bencana/helper.dart';
 import 'package:app_mitigasi_bencana/read_book.dart';
 import 'package:flutter/material.dart';
 
-class Book {
-  final String title;
-  final String author;
-  final String imagePath;
-  final String pdfPath;
-
-  Book(
-      {required this.title,
-      required this.author,
-      required this.imagePath,
-      required this.pdfPath});
-}
-
 class Education extends StatelessWidget {
-  final List<Book> books = [
-    Book(
-        title: 'A House Divided',
-        author: 'Nicole Ciacchella',
-        imagePath: 'assets/images/books/book1.png',
-        pdfPath: 'assets/pdf/book1.pdf'),
-    Book(
-        title: 'A Princess of Mars',
-        author: 'Edgar Rice Burroughs',
-        imagePath: 'assets/images/books/book2.png',
-        pdfPath: 'assets/pdf/book2.pdf'),
-    Book(
-        title: 'Around the World in Eighty Days',
-        author: 'Jules Verne',
-        imagePath: 'assets/images/books/book3.png',
-        pdfPath: 'assets/pdf/book3.pdf'),
-    Book(
-        title: 'Dead & Buried (A Partners in Crime Supernatural Mystery)',
-        author: 'T.K. Eldridge',
-        imagePath: 'assets/images/books/book4.png',
-        pdfPath: 'assets/pdf/book4.pdf'),
-    Book(
-        title: '20000 Lieues sous les mers',
-        author: 'Jules Verne',
-        imagePath: 'assets/images/books/book5.png',
-        pdfPath: 'assets/pdf/book5.pdf'),
-    // Add more books here
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('E-Book Edukasi'),
-      ),
-      body: BookGrid(books),
-    );
+        backgroundColor: Colors.white,
+        appBar: PreferredSize(
+          preferredSize:
+              Size.fromHeight(60), // Set the preferred height of the AppBar
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xFF930000),
+                  Color(0xFFC30000)
+                ], // Gradient colors
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(20), // Adjust the radius as needed
+              ),
+            ),
+            child: AppBar(
+              backgroundColor: Colors.transparent, // Make AppBar transparent
+              elevation: 0, // Remove the shadow
+              leading: GestureDetector(
+                onTap: () {
+                  // Handle back button action here
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  padding: EdgeInsets.only(top: 10, bottom: 10, left: 20),
+                  child: Image.asset(
+                    'assets/images/back.png', // Replace with your custom image asset path
+                    width: 24, // Adjust the width as needed
+                    height: 24, // Adjust the height as needed
+                  ),
+                ),
+              ),
+              title: Text(
+                "Buku Edukasi",
+                style: TextStyle(
+                    color: Colors.white, // Set text color to white
+                    fontSize: 20, // Adjust font size as needed
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.bold),
+              ),
+              centerTitle: true, // Center the title horizontally
+            ),
+          ),
+        ),
+        body: Container(
+          margin: EdgeInsets.only(right: 4, left: 4),
+          child: BookGrid(getBooks),
+        ));
   }
 }
 
@@ -65,8 +70,8 @@ class BookGrid extends StatelessWidget {
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        mainAxisSpacing: 2,
-        crossAxisSpacing: 2,
+        mainAxisSpacing: 0,
+        crossAxisSpacing: 0,
         childAspectRatio: 0.7, // Adjust this value to change item aspect ratio
       ),
       itemCount: books.length,
@@ -90,14 +95,14 @@ class BookItem extends StatelessWidget {
     return MaterialButton(
       onPressed: () {
         Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ReadBook(
-                  title: book.title,
-                  pdfPath: book.pdfPath, 
-                ),
-              ),
-            );
+          context,
+          MaterialPageRoute(
+            builder: (context) => ReadBook(
+              title: book.title,
+              pdfPath: book.pdfPath,
+            ),
+          ),
+        );
       },
       padding: EdgeInsets.zero, // Remove padding
       child: Container(

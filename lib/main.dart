@@ -13,6 +13,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       title: 'Convex Buttom Bar',
       debugShowCheckedModeBanner: false,
+      theme: new ThemeData(scaffoldBackgroundColor: const Color(0xFFEFEFEF)),
       home: Scaffold(
         body: SplashScreen(),
       ),
