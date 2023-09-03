@@ -1,4 +1,9 @@
+import 'dart:io';
+
 import 'package:app_mitigasi_bencana/books.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_dialogs/flutter_dialogs.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 const String google_api_key = "AIzaSyBik0QAgip4imXCI1gIRHVjLtytKMdxX0c";
@@ -105,9 +110,9 @@ final List<Zone> getZones = [
   ),
 ];
 
-final List<Location> getLocations = [
-  Location(
-    name: 'Location A',
+final List<Place> getPlaces = [
+  Place(
+    name: 'Place A',
     latitude: 37.7749,
     longitude: -122.4194,
     phone: '+1 123-456-7890',
@@ -116,8 +121,8 @@ final List<Location> getLocations = [
     people: 50,
     type: 1,
   ),
-  Location(
-    name: 'Location B',
+  Place(
+    name: 'Place B',
     latitude: 34.0522,
     longitude: -118.2437,
     phone: '+1 987-654-3210',
@@ -126,8 +131,8 @@ final List<Location> getLocations = [
     people: 40,
     type: 2,
   ),
-  Location(
-    name: 'Location C',
+  Place(
+    name: 'Place C',
     latitude: 40.7128,
     longitude: -74.0060,
     phone: '+1 555-123-4567',
@@ -136,8 +141,8 @@ final List<Location> getLocations = [
     people: 60,
     type: 1,
   ),
-  Location(
-    name: 'Location D',
+  Place(
+    name: 'Place D',
     latitude: 41.8781,
     longitude: -87.6298,
     phone: '+1 333-444-5555',
@@ -146,8 +151,8 @@ final List<Location> getLocations = [
     people: 30,
     type: 2,
   ),
-  Location(
-    name: 'Location E',
+  Place(
+    name: 'Place E',
     latitude: 51.5074,
     longitude: -0.1278,
     phone: '+44 20 1234 5678',
@@ -156,8 +161,8 @@ final List<Location> getLocations = [
     people: 45,
     type: 1,
   ),
-  Location(
-    name: 'Location F',
+  Place(
+    name: 'Place F',
     latitude: 48.8566,
     longitude: 2.3522,
     phone: '+33 1 2345 6789',
@@ -166,8 +171,8 @@ final List<Location> getLocations = [
     people: 25,
     type: 2,
   ),
-  Location(
-    name: 'Location G',
+  Place(
+    name: 'Place G',
     latitude: 35.6895,
     longitude: 139.6917,
     phone: '+81 3-1234-5678',
@@ -176,8 +181,8 @@ final List<Location> getLocations = [
     people: 70,
     type: 1,
   ),
-  Location(
-    name: 'Location H',
+  Place(
+    name: 'Place H',
     latitude: -33.8688,
     longitude: 151.2093,
     phone: '+61 2 9876 5432',
@@ -186,8 +191,8 @@ final List<Location> getLocations = [
     people: 40,
     type: 2,
   ),
-  Location(
-    name: 'Location I',
+  Place(
+    name: 'Place I',
     latitude: -22.9068,
     longitude: -43.1729,
     phone: '+55 21 98765-4321',
@@ -196,8 +201,8 @@ final List<Location> getLocations = [
     people: 35,
     type: 1,
   ),
-  Location(
-    name: 'Location J',
+  Place(
+    name: 'Place J',
     latitude: 55.7558,
     longitude: 37.6176,
     phone: '+7 495 123-45-67',
@@ -236,7 +241,7 @@ class Zone {
       required this.type});
 }
 
-class Location {
+class Place {
   final String name; // name of district / village / city / ward
   final double latitude;
   final double longitude;
@@ -246,7 +251,7 @@ class Location {
   final int people;
   final int type; // only 1 or 2
 
-  Location(
+  Place(
       {required this.name,
       required this.latitude,
       required this.longitude,
@@ -256,3 +261,32 @@ class Location {
       required this.people,
       required this.type});
 }
+
+Future<bool> _handleLocationPermission(BuildContext context) async {
+  bool serviceEnabled;
+  LocationPermission permission;
+  
+  serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  if (!serviceEnabled) {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Location services are disabled. Please enable the services')));
+    return false;
+  }
+  permission = await Geolocator.checkPermission();
+  if (permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.denied) {   
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Location permissions are denied')));
+      return false;
+    }
+  }
+  if (permission == LocationPermission.deniedForever) {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Location permissions are permanently denied, we cannot request permissions.')));
+    return false;
+  }
+  return true;
+}
+
+Position? currentPosition;

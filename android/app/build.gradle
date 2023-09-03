@@ -65,4 +65,7 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    android.useAndroidX=true
+    android.enableJetifier=true
+}

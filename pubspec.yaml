@@ -20,6 +20,10 @@ dependencies:
   http: ^1.1.0
   flutter_native_splash: ^2.2.4
   stroke_text: ^0.0.2
+  flutter_dialogs: ^3.0.0
+  geolocator: ^8.2.0
+  geocoding: ^2.0.4
+  permission_handler: ^10.4.3
 
 flutter_launcher_icons:
   android: true

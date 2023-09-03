@@ -1,10 +1,8 @@
-import 'dart:typed_data';
-import 'dart:ui';
-
 import 'package:app_mitigasi_bencana/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 
@@ -17,7 +15,7 @@ class _NavigasiState extends State<Navigasi> {
   late GoogleMapController _mapController;
   Set<Marker> _markers = {};
   Set<Polyline> _polylines = {};
-  Location selectedLocation = getLocations[1];
+  Place selectedPlace = getPlaces[1];
   bool _isBottomPopupVisible = false;
   BitmapDescriptor markerIconType1 = BitmapDescriptor.defaultMarker;
   BitmapDescriptor markerIconType2 = BitmapDescriptor.defaultMarker;
@@ -34,7 +32,7 @@ class _NavigasiState extends State<Navigasi> {
       _isBottomPopupVisible = true;
 
       // Find the selected location based on the tapped position
-      selectedLocation = getLocations.firstWhere(
+      selectedPlace = getPlaces.firstWhere(
         (location) =>
             location.latitude == position.latitude &&
             location.longitude == position.longitude,
@@ -51,8 +49,8 @@ class _NavigasiState extends State<Navigasi> {
   void _addMarkers() async {
     await _setMarkerIcons();
 
-    for (int i = 0; i < getLocations.length; i++) {
-      Location location = getLocations[i];
+    for (int i = 0; i < getPlaces.length; i++) {
+      Place location = getPlaces[i];
       LatLng locationPosition = LatLng(location.latitude, location.longitude);
 
       BitmapDescriptor markerIcon;
@@ -73,21 +71,31 @@ class _NavigasiState extends State<Navigasi> {
           position: locationPosition,
           icon: markerIcon,
           infoWindow: InfoWindow(title: location.name),
-          onTap: () => _showPosition(locationPosition),
+          onTap: () {
+            _showPosition(locationPosition);
+            double newZoom = 16;
+            _mapController.animateCamera(CameraUpdate.newLatLngZoom(
+              LatLng(locationPosition.latitude - 0.003,
+                  locationPosition.longitude),
+              newZoom,
+            ));
+          },
         ),
       );
     }
   }
 
   Future<void> _setMarkerIcons() async {
-    BitmapDescriptor.fromAssetImage(const ImageConfiguration(size: Size.zero),
+    BitmapDescriptor.fromAssetImage(
+            const ImageConfiguration(size: Size(30, 30)),
             'assets/images/location_type1.png')
         .then((icon) {
       setState(() {
         markerIconType1 = icon;
       });
     });
-    BitmapDescriptor.fromAssetImage(const ImageConfiguration(size: Size.zero),
+    BitmapDescriptor.fromAssetImage(
+            const ImageConfiguration(size: Size(30, 30)),
             'assets/images/location_type2.png')
         .then((icon) {
       setState(() {
@@ -200,8 +208,11 @@ class _NavigasiState extends State<Navigasi> {
               ],
             ),
             padding: EdgeInsets.all(8),
-            child: selectedLocation != null
-                ? LocationCard(location: selectedLocation!, navigasiState: this,)
+            child: selectedPlace != null
+                ? PlaceCard(
+                    location: selectedPlace!,
+                    navigasiState: this,
+                  )
                 : Text('No location selected'),
           ),
         ),
@@ -210,6 +221,7 @@ class _NavigasiState extends State<Navigasi> {
   }
 
   Widget build(BuildContext context) {
+      
     return Scaffold(
       appBar: PreferredSize(
         preferredSize:
@@ -259,12 +271,12 @@ class _NavigasiState extends State<Navigasi> {
           GoogleMap(
             onMapCreated: _onMapCreated,
             initialCameraPosition: CameraPosition(
-              target: _marker1Position,
-              zoom: 10,
+              target: LatLng(0.0,  0.0),
+              zoom: 16,
             ),
             markers: _markers,
             polylines: _polylines,
-            circles: _circles, // Add circles to the map
+            circles: _circles,
           ),
           Positioned.fill(
             child: Listener(
@@ -280,11 +292,11 @@ class _NavigasiState extends State<Navigasi> {
   }
 }
 
-class LocationCard extends StatelessWidget {
-  final Location location;
+class PlaceCard extends StatelessWidget {
+  final Place location;
   final _NavigasiState navigasiState;
 
-  LocationCard({required this.location, required this.navigasiState});
+  PlaceCard({required this.location, required this.navigasiState});
 
   @override
   Widget build(BuildContext context) {
