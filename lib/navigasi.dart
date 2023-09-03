@@ -17,26 +17,28 @@ class _NavigasiState extends State<Navigasi> {
   late GoogleMapController _mapController;
   Set<Marker> _markers = {};
   Set<Polyline> _polylines = {};
-  LatLng _tappedPosition = LatLng(0.0, 0.0); // Holds the tapped position
+  Location selectedLocation = getLocations[1];
   bool _isBottomPopupVisible = false;
+  BitmapDescriptor markerIconType1 = BitmapDescriptor.defaultMarker;
+  BitmapDescriptor markerIconType2 = BitmapDescriptor.defaultMarker;
   // Create custom marker icons for each type
-  final BitmapDescriptor markerIconType1 =
-      BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue);
-  final BitmapDescriptor markerIconType2 =
-      BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen);
-// Add more if needed for other types
 
-  void _toggleBottomPopup(LatLng position) {
+  void _toggleBottomPopup() {
     setState(() {
-      _tappedPosition = position;
       _isBottomPopupVisible = !_isBottomPopupVisible; // Toggle popup visibility
     });
   }
 
   void _showPosition(LatLng position) {
     setState(() {
-      _tappedPosition = position;
-      _isBottomPopupVisible = true; // Show the bottom popup
+      _isBottomPopupVisible = true;
+
+      // Find the selected location based on the tapped position
+      selectedLocation = getLocations.firstWhere(
+        (location) =>
+            location.latitude == position.latitude &&
+            location.longitude == position.longitude,
+      );
     });
   }
 
@@ -46,53 +48,53 @@ class _NavigasiState extends State<Navigasi> {
     });
   }
 
-  Future<Uint8List> getResizedMarkerIconFromAssets(
-      String path, int width, int height) async {
-    final ByteData data = await rootBundle.load(path);
-    final Uint8List bytes = data.buffer.asUint8List();
-    final codec = await instantiateImageCodec(bytes,
-        targetHeight: height, targetWidth: width);
-    final frameInfo = await codec.getNextFrame();
-    final resizedBytes =
-        await frameInfo.image.toByteData(format: ImageByteFormat.png);
+  void _addMarkers() async {
+    await _setMarkerIcons();
 
-    return resizedBytes!.buffer.asUint8List();
-  }
+    for (int i = 0; i < getLocations.length; i++) {
+      Location location = getLocations[i];
+      LatLng locationPosition = LatLng(location.latitude, location.longitude);
 
-void _addMarkers() {
-  final int iconSize = 48; // Set the desired size for the icons (in pixels)
+      BitmapDescriptor markerIcon;
+      switch (location.type) {
+        case 1:
+          markerIcon = markerIconType1;
+          break;
+        case 2:
+          markerIcon = markerIconType2;
+          break;
+        default:
+          markerIcon = markerIconType1;
+      }
 
-  for (int i = 0; i < getLocations.length; i++) {
-    Location location = getLocations[i];
-    LatLng locationPosition = LatLng(location.latitude, location.longitude);
-
-    String iconPath;
-    switch (location.type) {
-      case 1:
-        iconPath = 'assets/marker_icons/marker_type1.png';
-        break;
-      case 2:
-        iconPath = 'assets/marker_icons/marker_type2.png';
-        break;
-      default:
-        iconPath = 'assets/marker_icons/default.png'; // Provide a default icon
-    }
-
-    _markers.add(
-      Marker(
-        markerId: MarkerId('marker$i'),
-        position: locationPosition,
-        icon: BitmapDescriptor.fromAsset(
-          iconPath,
-          // Set the desired width and height for the icon
-          size: Size(iconSize.toDouble(), iconSize.toDouble()),
+      _markers.add(
+        Marker(
+          markerId: MarkerId('marker$i'),
+          position: locationPosition,
+          icon: markerIcon,
+          infoWindow: InfoWindow(title: location.name),
+          onTap: () => _showPosition(locationPosition),
         ),
-        infoWindow: InfoWindow(title: location.name),
-        onTap: () => _showPosition(locationPosition),
-      ),
-    );
+      );
+    }
   }
-}
+
+  Future<void> _setMarkerIcons() async {
+    BitmapDescriptor.fromAssetImage(const ImageConfiguration(size: Size.zero),
+            'assets/images/location_type1.png')
+        .then((icon) {
+      setState(() {
+        markerIconType1 = icon;
+      });
+    });
+    BitmapDescriptor.fromAssetImage(const ImageConfiguration(size: Size.zero),
+            'assets/images/location_type2.png')
+        .then((icon) {
+      setState(() {
+        markerIconType2 = icon;
+      });
+    });
+  }
 
   void _addCircles() {
     for (int i = 0; i < getZones.length; i++) {
@@ -157,14 +159,6 @@ void _addMarkers() {
     _addCircles();
   }
 
-  @override
-  void didUpdateWidget(covariant Navigasi oldWidget) {
-     _addMarkers();
-    _fetchPolyline();
-    _addCircles();
-    super.didUpdateWidget(oldWidget);
-  }
-
   void _onMapCreated(GoogleMapController controller) {
     _mapController = controller;
   }
@@ -176,7 +170,7 @@ void _addMarkers() {
   Widget _buildBottomPopup() {
     return AnimatedPositioned(
       duration: Duration(milliseconds: 300),
-      bottom: _isBottomPopupVisible ? 0 : -150, // Position based on visibility
+      bottom: _isBottomPopupVisible ? 0 : -335, // Position based on visibility
       left: 0,
       right: 0,
       child: GestureDetector(
@@ -184,7 +178,7 @@ void _addMarkers() {
           if (_isBottomPopupVisible) {
             _hideBottomPopup();
           } else {
-            _toggleBottomPopup(_tappedPosition);
+            _toggleBottomPopup();
           }
         },
         child: ClipRRect(
@@ -193,25 +187,22 @@ void _addMarkers() {
             topRight: Radius.circular(20),
           ),
           child: Container(
-            height: 150,
+            height: 335,
             decoration: BoxDecoration(
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.2), // Shadow color
+                  color: Colors.black.withOpacity(0.2),
                   spreadRadius: 2,
                   blurRadius: 5,
-                  offset: Offset(0, 3), // Shadow offset
+                  offset: Offset(0, 3),
                 ),
               ],
             ),
-            padding: EdgeInsets.all(16),
-            child: Text(
-              'Latitude: ${_tappedPosition.latitude.toStringAsFixed(6)}, '
-              'Longitude: ${_tappedPosition.longitude.toStringAsFixed(6)}',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
+            padding: EdgeInsets.all(8),
+            child: selectedLocation != null
+                ? LocationCard(location: selectedLocation!, navigasiState: this,)
+                : Text('No location selected'),
           ),
         ),
       ),
@@ -278,7 +269,7 @@ void _addMarkers() {
           Positioned.fill(
             child: Listener(
               onPointerDown: (_) {
-                _hideBottomPopup(); // Hide the popup on map pointer down
+                _hideBottomPopup();
               },
             ),
           ),
@@ -286,5 +277,152 @@ void _addMarkers() {
         ],
       ),
     );
+  }
+}
+
+class LocationCard extends StatelessWidget {
+  final Location location;
+  final _NavigasiState navigasiState;
+
+  LocationCard({required this.location, required this.navigasiState});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        margin: EdgeInsets.all(4),
+        child: ListView(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Informasi',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  Divider(
+                    color: Color(0xFF930000), // Color of the line
+                    thickness: 1.5, // Adjust the thickness as needed
+                  ),
+                  SizedBox(height: 8.0),
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.only(right: 8, left: 8),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(children: [
+                          Image.asset('assets/images/phone.png'),
+                          SizedBox(width: 8.0),
+                          Text(
+                            location.phone,
+                            style: TextStyle(color: Colors.black, fontSize: 14),
+                          ),
+                        ]),
+                        SizedBox(height: 8.0),
+                        Text(
+                          "Ketersediaan",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 6.0),
+                        Row(children: [
+                          SizedBox(width: 3.0),
+                          Image.asset(
+                            'assets/images/water.png',
+                            width: 14,
+                          ),
+                          SizedBox(width: 11.0),
+                          Text(
+                            '${location.water} Liter',
+                            style: TextStyle(color: Colors.black, fontSize: 14),
+                          ),
+                        ]),
+                        SizedBox(height: 4.0),
+                        Row(children: [
+                          Image.asset(
+                            'assets/images/food.png',
+                            width: 20,
+                          ),
+                          SizedBox(width: 8.0),
+                          Text(
+                            location.availability,
+                            style: TextStyle(color: Colors.black, fontSize: 14),
+                          ),
+                        ]),
+                        SizedBox(height: 4.0),
+                        Row(children: [
+                          Image.asset(
+                            'assets/images/clothes.png',
+                            width: 20,
+                          ),
+                          SizedBox(width: 8.0),
+                          Text(
+                            '${location.people} Orang',
+                            style: TextStyle(color: Colors.black, fontSize: 14),
+                          ),
+                        ]),
+                        SizedBox(height: 8.0),
+                        Text(
+                          "Akses Tersedia",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 6.0),
+                        Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Image.asset(
+                                'assets/images/motor.png',
+                                width: 50,
+                              ),
+                              SizedBox(width: 8.0),
+                              Image.asset(
+                                'assets/images/car.png',
+                                width: 40,
+                              ),
+                              SizedBox(width: 8.0),
+                              Image.asset(
+                                'assets/images/truck.png',
+                                width: 40,
+                              ),
+                              SizedBox(width: 8.0),
+                            ]),
+                        SizedBox(height: 12),
+                      ],
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      navigasiState._toggleBottomPopup();
+                    },
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Color(0xFF930000)),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              8.0), // Adjust the radius as needed
+                        ),
+                      ),
+                      minimumSize: MaterialStateProperty.all(
+                          Size(double.infinity, 38.0)), // Full width button
+                    ),
+                    child: Text(
+                      "Lokasi",
+                      style: TextStyle(fontSize: 16.0),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ));
   }
 }

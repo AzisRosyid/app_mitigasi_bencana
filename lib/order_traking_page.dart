@@ -1,5 +1,7 @@
 import 'dart:async';
-
+import 'package:flutter/services.dart' show rootBundle;
+import 'dart:ui' as ui;
+import 'dart:typed_data';
 import 'package:app_mitigasi_bencana/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -18,7 +20,7 @@ class OrderTrackingPageState extends State<OrderTrackingPage> {
   static const LatLng sourceLocation = LatLng(37.33500926, -122.03272188);
   static const LatLng destination = LatLng(37.33429383, -122.06600055);
 
-   List<LatLng> polylineCoordinates = [];
+  List<LatLng> polylineCoordinates = [];
 
   void getPolyPoints() async {
     PolylinePoints polylinePoints = PolylinePoints();
@@ -35,9 +37,23 @@ class OrderTrackingPageState extends State<OrderTrackingPage> {
     }
   }
 
+  Future<Uint8List> getBytesFromAsset(
+      {required String path, required int width}) async {
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetWidth: width);
+    ui.FrameInfo fi = await codec.getNextFrame();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
+        .buffer
+        .asUint8List();
+  }
+
+  late Marker demo;
+
   @override
   void initState() {
     getPolyPoints();
+    demo = new Marker(markerId: MarkerId("marker_id"), position: sourceLocation);
     super.initState();
   }
 
@@ -55,21 +71,14 @@ class OrderTrackingPageState extends State<OrderTrackingPage> {
               CameraPosition(target: sourceLocation, zoom: 14.5),
           polylines: {
             Polyline(
-              polylineId: PolylineId("route"),
-              points: polylineCoordinates
-            ),
+                polylineId: PolylineId("route"), points: polylineCoordinates),
           },
           markers: {
-                Marker(
-                  markerId: MarkerId("source"),
-                  position: sourceLocation
-                ),
-                Marker(
-                  markerId: MarkerId("destination"),
-                  position: destination
-                )
-              }
-              ),
+            demo,
+          }),
     );
   }
+}
+void main() {
+  runApp(const OrderTrackingPage());
 }

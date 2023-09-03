@@ -50,10 +50,18 @@ flutter:
         - asset: assets/fonts/Knewave-Regular.ttf
   assets:
     - assets/images/logo.jpg
+    - assets/images/logo.png
     - assets/images/report.png
     - assets/images/map.png
     - assets/images/back.png
     - assets/images/book.png
+    - assets/images/water.png
+    - assets/images/phone.png
+    - assets/images/clothes.png
+    - assets/images/food.png
+    - assets/images/motor.png
+    - assets/images/car.png
+    - assets/images/truck.png
     - assets/images/location_type1.png
     - assets/images/location_type2.png
     - assets/images/books/book1.png
