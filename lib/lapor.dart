@@ -76,161 +76,268 @@ class _LaporState extends State<Lapor> {
           ),
         ),
       ),
-      body:
-        ListView.builder(
-        itemCount: getPlaces.length,
+      body: ListView.builder(
+        itemCount: getPlaces.length + 1,
         itemBuilder: (BuildContext context, int index) {
-          final place = getPlaces[index];
-          return Column(
-            children: [
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                decoration: BoxDecoration(
-                    color:
-                        Colors.white, // Background color for the rounded edge
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5), // Shadow color
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                        offset: Offset(0, 3), // Shadow position
-                      ),
-                    ]),
-                child: Column(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(12.0),
+          if (index == 0) {
+            return Container(
+              margin: EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12.0),
+                color: Colors
+                    .white, // Change this color to your desired background color
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.all(8), // Adjust margin as needed
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
                       child: Container(
-                        width: double.infinity, // Full width for the item
-                        decoration: BoxDecoration(
-                          color: Colors
-                              .white, // White background color for the item
-                          boxShadow: [
-                            BoxShadow(
-                              color:
-                                  Colors.grey.withOpacity(0.5), // Shadow color
-                              spreadRadius: 2,
-                              blurRadius: 5,
-                              offset: Offset(0, 3), // Shadow position
-                            ),
-                          ],
-                        ),
-                        child: MaterialButton(
-                          child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '${place.name}',
-                                  style: TextStyle(
-                                      color: Color(0xFF9D0000),
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Stack(
-                                  children: [
-                                    Visibility(
-                                      visible: selectedPlace == place,
-                                      child: Image.asset(
-                                        'assets/images/arrow_down.png',
-                                        width: 20,
-                                      ),
-                                    ),
-                                    Visibility(
-                                      visible: selectedPlace != place,
-                                      child: Image.asset(
-                                        'assets/images/arrow_right.png',
-                                        width: 20,
-                                      ),
-                                    )
-                                  ],
-                                )
-                              ]),
-                          onPressed: () {
-                            setState(() {
-                              selectedPlace = place;
-                            });
-                          },
+                        color: Colors
+                            .white, // Add a background color for the image frame
+                        child: Image.asset(
+                          'assets/images/lapor.png',
+                          fit: BoxFit.cover,
+                          height: 200.0, // Adjust the height as needed
                         ),
                       ),
                     ),
-                    if (selectedPlace == place)
-                      ClipRRect(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(12.0),
-                          bottomRight: Radius.circular(12.0),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'Badan Penanggulangan',
+                          style: TextStyle(
+                              color: Color(0xFF9D0000),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
                         ),
-                        child: Container(
-                          width:
-                              double.infinity, // Full width for the description
-                          decoration:
-                              BoxDecoration(color: Colors.white, boxShadow: [
-                            BoxShadow(
-                              color: Colors.black, // Shadow color
-                              spreadRadius: 2,
-                              blurRadius: 5,
-                              offset: Offset(0, 3), // Shadow position
+                        Text(
+                          'Bencana Daerah Jogja',
+                          style: TextStyle(
+                              color: Color(0xFF9D0000),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 16.0),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Call Center: ',
+                              style: TextStyle(
+                                  fontSize: 14.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
                             ),
-                          ]),
-                          child: Column(
-                            children: [
-                              Container(
-                                height: 8.0,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(12.0),
-                                      bottomRight: Radius.circular(12.0),
-                                    ),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey
-                                            .withOpacity(0.5), // Shadow color
-                                        spreadRadius: 2,
-                                        blurRadius: 5,
-                                        offset: Offset(0, 3), // Shadow position
-                                      ),
-                                    ]),
+                            Text(
+                              '+62 811-2628-911',
+                              style: TextStyle(
+                                fontSize: 14.0,
+                                color: Colors.black,
                               ),
-                              Container(
-                                padding: EdgeInsets.all(8),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    topRight: Radius.circular(20),
-                                  ),
-                                  child: Container(
-                                    height: 290,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.2),
-                                          spreadRadius: 2,
-                                          blurRadius: 5,
-                                          offset: Offset(0, 3),
-                                        ),
-                                      ],
-                                    ),
-                                    padding: EdgeInsets.all(8),
-                                    child: selectedPlace != null
-                                        ? PlaceCard(
-                                            place: selectedPlace!,
-                                          )
-                                        : Text('No location selected'),
-                                  ),
-                                ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 16.0),
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                Color(0xFF930000)),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    8.0), // Adjust the radius as needed
+                              ),
+                            ),
+                            minimumSize: MaterialStateProperty.all(Size(
+                                double.infinity, 38.0)), // Full width button
+                          ),
+                          child: Text(
+                            "Hubungi",
+                            style: TextStyle(fontSize: 16.0),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          } else {
+            final place = getPlaces[index - 1];
+            return Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  decoration: BoxDecoration(
+                      color:
+                          Colors.white, // Background color for the rounded edge
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5), // Shadow color
+                          spreadRadius: 2,
+                          blurRadius: 5,
+                          offset: Offset(0, 3), // Shadow position
+                        ),
+                      ]),
+                  child: Column(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(12.0),
+                        child: Container(
+                          width: double.infinity, // Full width for the item
+                          decoration: BoxDecoration(
+                            color: Colors
+                                .white, // White background color for the item
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey
+                                    .withOpacity(0.5), // Shadow color
+                                spreadRadius: 2,
+                                blurRadius: 5,
+                                offset: Offset(0, 3), // Shadow position
                               ),
                             ],
                           ),
+                          child: MaterialButton(
+                            child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    '${place.name}',
+                                    style: TextStyle(
+                                        color: Color(0xFF9D0000),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Stack(
+                                    children: [
+                                      Visibility(
+                                        visible: selectedPlace == place,
+                                        child: Image.asset(
+                                          'assets/images/arrow_down.png',
+                                          width: 20,
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: selectedPlace != place,
+                                        child: Image.asset(
+                                          'assets/images/arrow_right.png',
+                                          width: 20,
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ]),
+                            onPressed: () {
+                              setState(() {
+                                if (selectedPlace == place) {
+                                  selectedPlace = null;
+                                } else
+                                  selectedPlace = place;
+                              });
+                            },
+                          ),
                         ),
                       ),
-                  ],
+                      if (selectedPlace == place)
+                        ClipRRect(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(12.0),
+                            bottomRight: Radius.circular(12.0),
+                          ),
+                          child: Container(
+                            width: double
+                                .infinity, // Full width for the description
+                            decoration:
+                                BoxDecoration(color: Colors.white, boxShadow: [
+                              BoxShadow(
+                                color: Colors.black, // Shadow color
+                                spreadRadius: 2,
+                                blurRadius: 5,
+                                offset: Offset(0, 3), // Shadow position
+                              ),
+                            ]),
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 8.0,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(12.0),
+                                        bottomRight: Radius.circular(12.0),
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey
+                                              .withOpacity(0.5), // Shadow color
+                                          spreadRadius: 2,
+                                          blurRadius: 5,
+                                          offset:
+                                              Offset(0, 3), // Shadow position
+                                        ),
+                                      ]),
+                                ),
+                                Container(
+                                  padding: EdgeInsets.all(8),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20),
+                                    ),
+                                    child: Container(
+                                      height: 290,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.black.withOpacity(0.2),
+                                            spreadRadius: 2,
+                                            blurRadius: 5,
+                                            offset: Offset(0, 3),
+                                          ),
+                                        ],
+                                      ),
+                                      padding: EdgeInsets.all(8),
+                                      child: selectedPlace != null
+                                          ? PlaceCard(
+                                              place: selectedPlace!,
+                                            )
+                                          : Text('No location selected'),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          );
+              ],
+            );
+          }
         },
       ),
     );
