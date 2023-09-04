@@ -1,10 +1,8 @@
 import 'dart:io';
 
-import 'package:app_mitigasi_bencana/books.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_dialogs/flutter_dialogs.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 const String google_api_key = "AIzaSyBik0QAgip4imXCI1gIRHVjLtytKMdxX0c";
 const double defaultPadding = 16.0;
@@ -110,106 +108,116 @@ final List<Zone> getZones = [
   ),
 ];
 
-final List<Place> getPlaces = [
+List<Place> getPlaces = [
   Place(
-    name: 'Place A',
-    latitude: 37.7749,
-    longitude: -122.4194,
-    phone: '+1 123-456-7890',
-    water: 30,
-    availability: 'Drink, Food, Clothes',
-    people: 50,
-    type: 1,
-  ),
-  Place(
-    name: 'Place B',
-    latitude: 34.0522,
-    longitude: -118.2437,
-    phone: '+1 987-654-3210',
-    water: 25,
-    availability: 'Food, Clothes',
-    people: 40,
-    type: 2,
-  ),
-  Place(
-    name: 'Place C',
-    latitude: 40.7128,
-    longitude: -74.0060,
-    phone: '+1 555-123-4567',
-    water: 40,
-    availability: 'Drink, Food',
-    people: 60,
-    type: 1,
-  ),
-  Place(
-    name: 'Place D',
+    name: "Example City 1",
     latitude: 41.8781,
     longitude: -87.6298,
-    phone: '+1 333-444-5555',
-    water: 20,
-    availability: 'Drink, Food, Clothes',
-    people: 30,
-    type: 2,
+    phone: "+1 (123) 456-7890",
+    water: 30,
+    availability: "Drink, Food, Clothes",
+    people: 5000,
+    type: 1,
+    access: [1, 2, 3],
   ),
   Place(
-    name: 'Place E',
+    name: "Example Village 1",
+    latitude: 36.7783,
+    longitude: -119.4179,
+    phone: "+1 (987) 654-3210",
+    water: 20,
+    availability: "Drink, Food",
+    people: 100,
+    type: 2,
+    access: [1, 2],
+  ),
+  Place(
+    name: "Example District 1",
     latitude: 51.5074,
     longitude: -0.1278,
-    phone: '+44 20 1234 5678',
-    water: 35,
-    availability: 'Drink',
-    people: 45,
-    type: 1,
-  ),
-  Place(
-    name: 'Place F',
-    latitude: 48.8566,
-    longitude: 2.3522,
-    phone: '+33 1 2345 6789',
-    water: 15,
-    availability: 'Food, Clothes',
-    people: 25,
-    type: 2,
-  ),
-  Place(
-    name: 'Place G',
-    latitude: 35.6895,
-    longitude: 139.6917,
-    phone: '+81 3-1234-5678',
-    water: 50,
-    availability: 'Drink, Food',
-    people: 70,
-    type: 1,
-  ),
-  Place(
-    name: 'Place H',
-    latitude: -33.8688,
-    longitude: 151.2093,
-    phone: '+61 2 9876 5432',
-    water: 30,
-    availability: 'Drink, Clothes',
-    people: 40,
-    type: 2,
-  ),
-  Place(
-    name: 'Place I',
-    latitude: -22.9068,
-    longitude: -43.1729,
-    phone: '+55 21 98765-4321',
-    water: 25,
-    availability: 'Food',
-    people: 35,
-    type: 1,
-  ),
-  Place(
-    name: 'Place J',
-    latitude: 55.7558,
-    longitude: 37.6176,
-    phone: '+7 495 123-45-67',
+    phone: "+44 20 7123 4567",
     water: 40,
-    availability: 'Drink, Food, Clothes',
-    people: 55,
+    availability: "Drink, Clothes",
+    people: 20000,
+    type: 1,
+    access: [1, 3],
+  ),
+  Place(
+    name: "Example Ward 1",
+    latitude: 34.0522,
+    longitude: -118.2437,
+    phone: "+1 (555) 789-1234",
+    water: 25,
+    availability: "Food, Clothes",
+    people: 3000,
     type: 2,
+    access: [2, 3],
+  ),
+  Place(
+    name: "Example City 2",
+    latitude: 40.7128,
+    longitude: -74.0060,
+    phone: "+1 (333) 444-5555",
+    water: 35,
+    availability: "Drink, Food",
+    people: 8000,
+    type: 1,
+    access: [1, 2],
+  ),
+  Place(
+    name: "Example Village 2",
+    latitude: 45.4215,
+    longitude: -75.6919,
+    phone: "+1 (111) 222-3333",
+    water: 15,
+    availability: "Food, Clothes",
+    people: 150,
+    type: 2,
+    access: [2, 3],
+  ),
+  Place(
+    name: "Example District 2",
+    latitude: 52.5200,
+    longitude: 13.4050,
+    phone: "+49 30 12345678",
+    water: 50,
+    availability: "Drink, Food, Clothes",
+    people: 25000,
+    type: 1,
+    access: [1, 2, 3],
+  ),
+  Place(
+    name: "Example Ward 2",
+    latitude: 37.7749,
+    longitude: -122.4194,
+    phone: "+1 (777) 888-9999",
+    water: 18,
+    availability: "Food",
+    people: 4000,
+    type: 2,
+    access: [1],
+  ),
+  Place(
+    name: "Example City 3",
+    latitude: 51.1657,
+    longitude: 10.4515,
+    phone: "+49 170 1234567",
+    water: 28,
+    availability: "Drink, Food, Clothes",
+    people: 7000,
+    type: 1,
+    access: [1, 2, 3],
+  ),
+  Place(
+    name: "Example Village 3",
+    latitude: 34.0522,
+    longitude: -118.2437,
+    phone: "+1 (999) 111-2222",
+    water: 22,
+    availability: "Drink, Food",
+    people: 250,
+    type: 2,
+    access: [1, 3],
   ),
 ];
 
@@ -250,6 +258,7 @@ class Place {
   final String availability; // example: Drink, Food and, Clothes
   final int people;
   final int type; // only 1 or 2
+  final List<int> access; // only 1, 2, and 3 not duplicate {1, 2, 3}
 
   Place(
       {required this.name,
@@ -259,34 +268,54 @@ class Place {
       required this.water,
       required this.availability,
       required this.people,
-      required this.type});
+      required this.type,
+      required this.access});
 }
 
-Future<bool> _handleLocationPermission(BuildContext context) async {
-  bool serviceEnabled;
-  LocationPermission permission;
-  
-  serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  if (!serviceEnabled) {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Location services are disabled. Please enable the services')));
-    return false;
-  }
-  permission = await Geolocator.checkPermission();
-  if (permission == LocationPermission.denied) {
-    permission = await Geolocator.requestPermission();
-    if (permission == LocationPermission.denied) {   
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Location permissions are denied')));
-      return false;
-    }
-  }
-  if (permission == LocationPermission.deniedForever) {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Location permissions are permanently denied, we cannot request permissions.')));
-    return false;
-  }
-  return true;
-}
+// Future<bool> _handleLocationPermission(BuildContext context) async {
+//   bool serviceEnabled;
+//   LocationPermission permission;
+
+//   serviceEnabled = await Geolocator.isLocationServiceEnabled();
+//   if (!serviceEnabled) {
+//     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+//         content: Text('Location services are disabled. Please enable the services')));
+//     return false;
+//   }
+//   permission = await Geolocator.checkPermission();
+//   if (permission == LocationPermission.denied) {
+//     permission = await Geolocator.requestPermission();
+//     if (permission == LocationPermission.denied) {
+//       ScaffoldMessenger.of(context).showSnackBar(
+//           const SnackBar(content: Text('Location permissions are denied')));
+//       return false;
+//     }
+//   }
+//   if (permission == LocationPermission.deniedForever) {
+//     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+//         content: Text('Location permissions are permanently denied, we cannot request permissions.')));
+//     return false;
+//   }
+//   return true;
+// }
 
 Position? currentPosition;
+Future<String> getLocationData() async {
+  try {
+    // Get current position using Geolocator
+    Position position = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    );
+
+    // Get address information using Geocoding
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+    currentPosition = position;
+
+    // Construct the location message
+    return "Latitude: ${position.latitude}, Longitude: ${position.longitude}\n" +
+        "Address: ${placemarks[0].name}, ${placemarks[0].subLocality}, ${placemarks[0].locality}, ${placemarks[0].administrativeArea}, ${placemarks[0].country}";
+  } catch (e) {
+    return "Error fetching location data: $e";
+  }
+}

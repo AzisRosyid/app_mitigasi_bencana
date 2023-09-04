@@ -1,3 +1,4 @@
+import 'package:app_mitigasi_bencana/helper.dart';
 import 'package:flutter/material.dart';
 
 class Lapor extends StatefulWidget {
@@ -6,30 +7,21 @@ class Lapor extends StatefulWidget {
 }
 
 class _LaporState extends State<Lapor> {
-  // Sample data for the list of items.
-  final List<String> items = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    // Add more items as needed.
-  ];
-
-  // Track the selected item for showing the description.
-  String selectedItem = "";
+  Place? selectedPlace;
 
   // Method to show the item description in a pop-up dialog.
-  void showItemDescription(String item) {
+  void showItemDescription(Place place) {
     setState(() {
-      selectedItem = item;
+      selectedPlace = place;
     });
 
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
         return Container(
-          padding: EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(8.0),
           child: Text(
-            'Description for $item goes here.', // Replace with the actual description for the selected item.
+            'Description for goes here.', // Replace with the actual description for the selected item.
             style: TextStyle(fontSize: 18.0),
           ),
         );
@@ -40,14 +32,55 @@ class _LaporState extends State<Lapor> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Lapor'),
+      backgroundColor: Colors.white.withOpacity(0.975),
+      appBar: PreferredSize(
+        preferredSize:
+            Size.fromHeight(60), // Set the preferred height of the AppBar
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF930000), Color(0xFFC30000)], // Gradient colors
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(20), // Adjust the radius as needed
+            ),
+          ),
+          child: AppBar(
+            backgroundColor: Colors.transparent, // Make AppBar transparent
+            elevation: 0, // Remove the shadow
+            leading: GestureDetector(
+              onTap: () {
+                // Handle back button action here
+                Navigator.pop(context);
+              },
+              child: Container(
+                padding: EdgeInsets.only(top: 10, bottom: 10, left: 20),
+                child: Image.asset(
+                  'assets/images/back.png', // Replace with your custom image asset path
+                  width: 24, // Adjust the width as needed
+                  height: 24, // Adjust the height as needed
+                ),
+              ),
+            ),
+            title: Text(
+              "Lapor",
+              style: TextStyle(
+                  color: Colors.white, // Set text color to white
+                  fontSize: 20, // Adjust font size as needed
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.bold),
+            ),
+            centerTitle: true, // Center the title horizontally
+          ),
+        ),
       ),
-      body: ListView.builder(
-        itemCount: items.length,
+      body:
+        ListView.builder(
+        itemCount: getPlaces.length,
         itemBuilder: (BuildContext context, int index) {
-          final item = items[index];
-
+          final place = getPlaces[index];
           return Column(
             children: [
               Container(
@@ -83,17 +116,46 @@ class _LaporState extends State<Lapor> {
                             ),
                           ],
                         ),
-                        child: ListTile(
-                          title: Text(item),
-                          onTap: () {
+                        child: MaterialButton(
+                          child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  '${place.name}',
+                                  style: TextStyle(
+                                      color: Color(0xFF9D0000),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Stack(
+                                  children: [
+                                    Visibility(
+                                      visible: selectedPlace == place,
+                                      child: Image.asset(
+                                        'assets/images/arrow_down.png',
+                                        width: 20,
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: selectedPlace != place,
+                                      child: Image.asset(
+                                        'assets/images/arrow_right.png',
+                                        width: 20,
+                                      ),
+                                    )
+                                  ],
+                                )
+                              ]),
+                          onPressed: () {
                             setState(() {
-                              selectedItem = item;
+                              selectedPlace = place;
                             });
                           },
                         ),
                       ),
                     ),
-                    if (selectedItem == item)
+                    if (selectedPlace == place)
                       ClipRRect(
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(12.0),
@@ -132,11 +194,32 @@ class _LaporState extends State<Lapor> {
                                     ]),
                               ),
                               Container(
-                                padding: EdgeInsets.all(16.0),
-                                child: Text(
-                                  'Description for $item goes here.', // Replace with the actual description for the selected item.
-                                  style: TextStyle(
-                                      fontSize: 16.0, color: Colors.black),
+                                padding: EdgeInsets.all(8),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20),
+                                  ),
+                                  child: Container(
+                                    height: 290,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          spreadRadius: 2,
+                                          blurRadius: 5,
+                                          offset: Offset(0, 3),
+                                        ),
+                                      ],
+                                    ),
+                                    padding: EdgeInsets.all(8),
+                                    child: selectedPlace != null
+                                        ? PlaceCard(
+                                            place: selectedPlace!,
+                                          )
+                                        : Text('No location selected'),
+                                  ),
                                 ),
                               ),
                             ],
@@ -151,5 +234,154 @@ class _LaporState extends State<Lapor> {
         },
       ),
     );
+  }
+}
+
+class PlaceCard extends StatelessWidget {
+  final Place place;
+
+  PlaceCard({required this.place});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        child: ListView(
+      children: [
+        Padding(
+          padding: EdgeInsets.all(8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.only(right: 8, left: 8),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(children: [
+                      Image.asset('assets/images/phone.png'),
+                      SizedBox(width: 8.0),
+                      Text(
+                        place.phone,
+                        style: TextStyle(color: Colors.black, fontSize: 14),
+                      ),
+                    ]),
+                    SizedBox(height: 8.0),
+                    Text(
+                      "Ketersediaan",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 6.0),
+                    Row(children: [
+                      SizedBox(width: 3.0),
+                      Image.asset(
+                        'assets/images/water.png',
+                        width: 14,
+                      ),
+                      SizedBox(width: 11.0),
+                      Text(
+                        '${place.water} Liter',
+                        style: TextStyle(color: Colors.black, fontSize: 14),
+                      ),
+                    ]),
+                    SizedBox(height: 4.0),
+                    Row(children: [
+                      Image.asset(
+                        'assets/images/food.png',
+                        width: 20,
+                      ),
+                      SizedBox(width: 8.0),
+                      Text(
+                        place.availability,
+                        style: TextStyle(color: Colors.black, fontSize: 14),
+                      ),
+                    ]),
+                    SizedBox(height: 4.0),
+                    Row(children: [
+                      Image.asset(
+                        'assets/images/clothes.png',
+                        width: 20,
+                      ),
+                      SizedBox(width: 8.0),
+                      Text(
+                        '${place.people} Orang',
+                        style: TextStyle(color: Colors.black, fontSize: 14),
+                      ),
+                    ]),
+                    SizedBox(height: 8.0),
+                    Text(
+                      "Akses Tersedia",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 6.0),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Visibility(
+                          visible: place.access.contains(1),
+                          child: Image.asset(
+                            'assets/images/motor.png',
+                            width: 50,
+                          ),
+                        ),
+                        Visibility(
+                          visible: place.access.contains(1),
+                          child: SizedBox(width: 8.0),
+                        ),
+                        Visibility(
+                          visible: place.access.contains(2),
+                          child: Image.asset(
+                            'assets/images/car.png',
+                            width: 40,
+                          ),
+                        ),
+                        Visibility(
+                          visible: place.access.contains(2),
+                          child: SizedBox(width: 8.0),
+                        ),
+                        Visibility(
+                          visible: place.access.contains(3),
+                          child: Image.asset(
+                            'assets/images/truck.png',
+                            width: 40,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 12),
+                  ],
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {},
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Color(0xFF930000)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                          8.0), // Adjust the radius as needed
+                    ),
+                  ),
+                  minimumSize: MaterialStateProperty.all(
+                      Size(double.infinity, 38.0)), // Full width button
+                ),
+                child: Text(
+                  "Lokasi",
+                  style: TextStyle(fontSize: 16.0),
+                ),
+              )
+            ],
+          ),
+        ),
+      ],
+    ));
   }
 }

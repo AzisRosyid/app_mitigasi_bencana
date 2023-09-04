@@ -327,11 +327,8 @@ class Home extends StatelessWidget {
                                 children: [
                                   _opsiMenuItem(context, 1,
                                       "assets/images/book.png", "Edukasi"),
-                                  _opsiMenuItem(
-                                      context,
-                                      2,
-                                      "assets/images/report.png",
-                                      "Lapor")
+                                  _opsiMenuItem(context, 2,
+                                      "assets/images/report.png", "Lapor")
                                 ],
                               ),
                             ),

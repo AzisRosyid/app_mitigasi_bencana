@@ -21,7 +21,7 @@ dependencies:
   flutter_native_splash: ^2.2.4
   stroke_text: ^0.0.2
   flutter_dialogs: ^3.0.0
-  geolocator: ^8.2.0
+  geolocator: ^10.0.0
   geocoding: ^2.0.4
   permission_handler: ^10.4.3
 
@@ -66,6 +66,12 @@ flutter:
     - assets/images/motor.png
     - assets/images/car.png
     - assets/images/truck.png
+    - assets/images/arrow_right.png
+    - assets/images/arrow_down.png
+    - assets/images/lapor.png
+    - assets/images/zone1.png
+    - assets/images/zone2.png
+    - assets/images/zone3.png
     - assets/images/location_type1.png
     - assets/images/location_type2.png
     - assets/images/books/book1.png

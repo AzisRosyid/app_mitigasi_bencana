@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:app_mitigasi_bencana/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
+
+import 'package:permission_handler/permission_handler.dart';
 
 class Navigasi extends StatefulWidget {
   @override
@@ -15,8 +20,9 @@ class _NavigasiState extends State<Navigasi> {
   late GoogleMapController _mapController;
   Set<Marker> _markers = {};
   Set<Polyline> _polylines = {};
-  Place selectedPlace = getPlaces[1];
+  Place? selectedPlace;
   bool _isBottomPopupVisible = false;
+  bool _isLocationPoly = false;
   BitmapDescriptor markerIconType1 = BitmapDescriptor.defaultMarker;
   BitmapDescriptor markerIconType2 = BitmapDescriptor.defaultMarker;
   // Create custom marker icons for each type
@@ -25,6 +31,20 @@ class _NavigasiState extends State<Navigasi> {
     setState(() {
       _isBottomPopupVisible = !_isBottomPopupVisible; // Toggle popup visibility
     });
+  }
+
+  void _setPolyline() {
+    _polylines.clear();
+    _polylines.add(Polyline(
+      polylineId: PolylineId('route'),
+      color: Color(0xFFCD0000),
+      points: [
+        LatLng(currentPosition!.latitude, currentPosition!.longitude),
+        LatLng(selectedPlace!.latitude, selectedPlace!.longitude)
+      ],
+      width: 5, // Adjust polyline width as needed
+    ));
+    _isLocationPoly = true;
   }
 
   void _showPosition(LatLng position) {
@@ -117,8 +137,7 @@ class _NavigasiState extends State<Navigasi> {
           strokeWidth: 1,
           strokeColor: _getCircleStrokeColor(
               zone.type), // Function to get stroke color based on zone type
-          fillColor: _getCircleFillColor(
-              zone.type), // Function to get fill color based on zone type
+          fillColor: _getCircleFillColor(zone.type),
         ),
       );
     }
@@ -155,24 +174,81 @@ class _NavigasiState extends State<Navigasi> {
   }
 
   Set<Circle> _circles = {};
-
-  final LatLng _marker1Position = LatLng(37.7749, -122.4194);
-  final LatLng _marker2Position = LatLng(37.6788, -122.1350);
+  late Timer _timer;
 
   @override
   void initState() {
     super.initState();
     _addMarkers();
-    _fetchPolyline();
     _addCircles();
+    _startTimer();
   }
 
   void _onMapCreated(GoogleMapController controller) {
     _mapController = controller;
   }
 
-  void _fetchPolyline() {
-    // Fetching polyline code remains the same
+  // Function to start the timer
+  void _startTimer() {
+    _timer = Timer.periodic(Duration(seconds: 2), (timer) {
+      _getLocation();
+      if (_isLocationPoly) _setPolyline();
+    });
+  }
+
+  // Function to stop the timer when the screen is disposed
+  void _stopTimer() {
+    if (_timer != null) {
+      _timer.cancel();
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _stopTimer(); // Stop the timer when the screen is disposed to prevent memory leaks
+  }
+
+  String _locationMessage = "";
+  Future<void> _getLocation() async {
+    // Request location permission
+    var status = await Permission.location.request();
+
+    if (status.isGranted) {
+      // Get the location and address
+      var locationData = await getLocationData();
+      setState(() {
+        _locationMessage = locationData;
+      });
+    } else {
+      setState(() {
+        _locationMessage = "Location permission denied";
+      });
+    }
+  }
+
+  Future<String> getLocationData() async {
+    try {
+      // Get current position using Geolocator
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
+      // Get address information using Geocoding
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
+
+      // Update the map location
+      setState(() {
+        currentPosition = position;
+      });
+
+      // Construct the location message
+      return "Latitude: ${position.latitude}, Longitude: ${position.longitude}\n" +
+          "Address: ${placemarks[0].name}, ${placemarks[0].subLocality}, ${placemarks[0].locality}, ${placemarks[0].administrativeArea}, ${placemarks[0].country}";
+    } catch (e) {
+      return "Error fetching location data: $e";
+    }
   }
 
   Widget _buildBottomPopup() {
@@ -210,7 +286,7 @@ class _NavigasiState extends State<Navigasi> {
             padding: EdgeInsets.all(8),
             child: selectedPlace != null
                 ? PlaceCard(
-                    location: selectedPlace!,
+                    place: selectedPlace!,
                     navigasiState: this,
                   )
                 : Text('No location selected'),
@@ -220,8 +296,182 @@ class _NavigasiState extends State<Navigasi> {
     );
   }
 
+  bool _isAlertDialogVisible = false;
+
+  // Function to show the AlertDialog
+  void _showAlertDialog() {
+    setState(() {
+      _isAlertDialogVisible = true;
+    });
+  }
+
+  // Function to hide the AlertDialog
+  void _hideAlertDialog() {
+    setState(() {
+      _isAlertDialogVisible = false;
+    });
+  }
+
+  Widget _buildAlertDialog() {
+    return Stack(
+      children: [
+        // Modal barrier for the darkened background
+        ModalBarrier(
+          color: Colors.black.withOpacity(0.5), // Adjust the opacity as needed
+          dismissible: false,
+        ),
+        // Centered GestureDetector wrapped AlertDialog
+        Center(
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 130, horizontal: 0),
+            child: GestureDetector(
+              onTap: () {
+                _hideAlertDialog(); // Hide the AlertDialog when tapped
+              },
+              child: AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16.0)
+                ),
+                content: ListView(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Legenda Peta',
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                            Divider(
+                              color: Color(0xFF930000), // Color of the line
+                              thickness: 1.5, // Adjust the thickness as needed
+                            ),
+                            SizedBox(height: 14.0),
+                            Container(
+                              width: double.infinity,
+                              margin: EdgeInsets.only(right: 8, left: 30),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(children: [
+                                    Image.asset('assets/images/location_type1.png', width: 30,),
+                                    SizedBox(width: 8.0),
+                                    Text(
+                                      "Shelter",
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 14),
+                                    ),
+                                  ]),
+                                  SizedBox(height: 12.0),
+                                Row(children: [
+                                    Image.asset('assets/images/location_type2.png', width: 30,),
+                                    SizedBox(width: 8.0),
+                                    Text(
+                                      "Titik Kumpul",
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 14),
+                                    ),
+                                  ]),
+                                  SizedBox(height: 12.0),
+                                Row(children: [
+                                    Image.asset('assets/images/zone1.png', width: 30,),
+                                    SizedBox(width: 8.0),
+                                    Text(
+                                      "Zona Aman",
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 14),
+                                    ),
+                                  ]),
+                                  SizedBox(height: 12.0),
+                                                                  Row(children: [
+                                    Image.asset('assets/images/zone2.png', width: 30,),
+                                    SizedBox(width: 8.0),
+                                    Text(
+                                      "Zona Siaga",
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 14),
+                                    ),
+                                  ]),
+                                  SizedBox(height: 12.0),
+                                                                  Row(children: [
+                                    Image.asset('assets/images/zone3.png', width: 30,),
+                                    SizedBox(width: 8.0),
+                                    Text(
+                                      "Zona Bahaya",
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 14),
+                                    ),
+                                  ]),
+                                  SizedBox(height: 14.0),
+                                                                  Row(children: [
+                                    Image.asset('assets/images/motor.png', width: 30,),
+                                    SizedBox(width: 8.0),
+                                    Text(
+                                      "Akses Motor",
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 14),
+                                    ),
+                                  ]),
+                                  SizedBox(height: 16.0),
+                                                                  Row(children: [
+                                    Image.asset('assets/images/car.png', width: 30,),
+                                    SizedBox(width: 8.0),
+                                    Text(
+                                      "Akses Mobil",
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 14),
+                                    ),
+                                  ]),
+                                  SizedBox(height: 12.0),
+                                                                  Row(children: [
+                                    Image.asset('assets/images/truck.png', width: 30,),
+                                    SizedBox(width: 8.0),
+                                    Text(
+                                      "Akses Truk",
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 14),
+                                    ),
+                                  ]),
+                                  SizedBox(height: 12.0),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+
+  void _onCurrentTap() {
+    double newZoom = 16;
+    _mapController.animateCamera(CameraUpdate.newLatLngZoom(
+      LatLng(currentPosition!.latitude, currentPosition!.longitude),
+      newZoom,
+    ));
+  }
+
   Widget build(BuildContext context) {
-      
+    _markers.add(
+      Marker(
+          markerId: MarkerId('userLocation'),
+          position: LatLng(currentPosition?.latitude ?? 0.0,
+              currentPosition?.longitude ?? 0.0),
+          infoWindow: InfoWindow(title: 'Your Location'),
+          onTap: () {
+            _onCurrentTap();
+            _hideBottomPopup();
+          }),
+    );
     return Scaffold(
       appBar: PreferredSize(
         preferredSize:
@@ -239,7 +489,16 @@ class _NavigasiState extends State<Navigasi> {
           ),
           child: AppBar(
             backgroundColor: Colors.transparent, // Make AppBar transparent
-            elevation: 0, // Remove the shadow
+            elevation: 0,
+            actions: [
+              IconButton(
+                icon: Icon(
+                    Icons.info), // You can change the icon to your desired one
+                onPressed: () {
+                  _showAlertDialog(); // Show the AlertDialog when the button is pressed
+                },
+              ),
+            ],
             leading: GestureDetector(
               onTap: () {
                 // Handle back button action here
@@ -271,7 +530,8 @@ class _NavigasiState extends State<Navigasi> {
           GoogleMap(
             onMapCreated: _onMapCreated,
             initialCameraPosition: CameraPosition(
-              target: LatLng(0.0,  0.0),
+              target: LatLng(currentPosition?.latitude ?? 0.0,
+                  currentPosition?.longitude ?? 0.0),
               zoom: 16,
             ),
             markers: _markers,
@@ -286,6 +546,8 @@ class _NavigasiState extends State<Navigasi> {
             ),
           ),
           _buildBottomPopup(),
+          if (_isAlertDialogVisible)
+            _buildAlertDialog(), // Show the AlertDialog if _isAlertDialogVisible is true
         ],
       ),
     );
@@ -293,10 +555,10 @@ class _NavigasiState extends State<Navigasi> {
 }
 
 class PlaceCard extends StatelessWidget {
-  final Place location;
+  final Place place;
   final _NavigasiState navigasiState;
 
-  PlaceCard({required this.location, required this.navigasiState});
+  PlaceCard({required this.place, required this.navigasiState});
 
   @override
   Widget build(BuildContext context) {
@@ -329,7 +591,7 @@ class PlaceCard extends StatelessWidget {
                           Image.asset('assets/images/phone.png'),
                           SizedBox(width: 8.0),
                           Text(
-                            location.phone,
+                            place.phone,
                             style: TextStyle(color: Colors.black, fontSize: 14),
                           ),
                         ]),
@@ -350,7 +612,7 @@ class PlaceCard extends StatelessWidget {
                           ),
                           SizedBox(width: 11.0),
                           Text(
-                            '${location.water} Liter',
+                            '${place.water} Liter',
                             style: TextStyle(color: Colors.black, fontSize: 14),
                           ),
                         ]),
@@ -362,7 +624,7 @@ class PlaceCard extends StatelessWidget {
                           ),
                           SizedBox(width: 8.0),
                           Text(
-                            location.availability,
+                            place.availability,
                             style: TextStyle(color: Colors.black, fontSize: 14),
                           ),
                         ]),
@@ -374,7 +636,7 @@ class PlaceCard extends StatelessWidget {
                           ),
                           SizedBox(width: 8.0),
                           Text(
-                            '${location.people} Orang',
+                            '${place.people} Orang',
                             style: TextStyle(color: Colors.black, fontSize: 14),
                           ),
                         ]),
@@ -388,24 +650,39 @@ class PlaceCard extends StatelessWidget {
                         ),
                         SizedBox(height: 6.0),
                         Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Image.asset(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Visibility(
+                              visible: place.access.contains(1),
+                              child: Image.asset(
                                 'assets/images/motor.png',
                                 width: 50,
                               ),
-                              SizedBox(width: 8.0),
-                              Image.asset(
+                            ),
+                            Visibility(
+                              visible: place.access.contains(1),
+                              child: SizedBox(width: 8.0),
+                            ),
+                            Visibility(
+                              visible: place.access.contains(2),
+                              child: Image.asset(
                                 'assets/images/car.png',
                                 width: 40,
                               ),
-                              SizedBox(width: 8.0),
-                              Image.asset(
+                            ),
+                            Visibility(
+                              visible: place.access.contains(2),
+                              child: SizedBox(width: 8.0),
+                            ),
+                            Visibility(
+                              visible: place.access.contains(3),
+                              child: Image.asset(
                                 'assets/images/truck.png',
                                 width: 40,
                               ),
-                              SizedBox(width: 8.0),
-                            ]),
+                            ),
+                          ],
+                        ),
                         SizedBox(height: 12),
                       ],
                     ),
@@ -413,6 +690,8 @@ class PlaceCard extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {
                       navigasiState._toggleBottomPopup();
+                      navigasiState._setPolyline();
+                      navigasiState._onCurrentTap();
                     },
                     style: ButtonStyle(
                       backgroundColor:

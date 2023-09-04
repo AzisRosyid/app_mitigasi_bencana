@@ -6,7 +6,7 @@ class Education extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.white.withOpacity(0.975),
         appBar: PreferredSize(
           preferredSize:
               Size.fromHeight(60), // Set the preferred height of the AppBar
@@ -138,7 +138,7 @@ class BookItem extends StatelessWidget {
                     color: Colors.white,
                     padding: EdgeInsets.all(8),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           book.title,
@@ -147,12 +147,13 @@ class BookItem extends StatelessWidget {
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 14,
+                            color: Color(0xFF7C0000)
                           ),
                         ),
                         SizedBox(height: 4),
                         Text(
                           book.author,
-                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                          style: TextStyle(fontSize: 12, color: Colors.black),
                         ),
                       ],
                     ),
