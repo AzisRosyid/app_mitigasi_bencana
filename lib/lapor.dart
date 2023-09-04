@@ -1,5 +1,6 @@
 import 'package:app_mitigasi_bencana/helper.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Lapor extends StatefulWidget {
   @override
@@ -27,6 +28,19 @@ class _LaporState extends State<Lapor> {
         );
       },
     );
+  }
+
+  Future<void> _openWhatsAppChat() async {
+    String message = Uri.encodeComponent("Hello, I'm reaching out from my Flutter app!");
+    final Uri phoneNumber = Uri.parse('tel:+123456789');
+    final Uri whatsappUrl = Uri.parse('https://wa.me/1895421891378');
+
+    await launchUrl(whatsappUrl);
+    // if (await canLaunchUrl(whatsappUrl)) {
+    //   await launchUrl(whatsappUrl);
+    // } else {
+    //   throw 'Could not launch $whatsappUrl';
+    // }
   }
 
   @override
@@ -154,7 +168,9 @@ class _LaporState extends State<Lapor> {
                         ),
                         SizedBox(height: 16.0),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            _openWhatsAppChat();
+                          },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 Color(0xFF930000)),

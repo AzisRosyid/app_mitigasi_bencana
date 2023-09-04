@@ -144,18 +144,6 @@ class Home extends StatelessWidget {
         ));
   }
 
-  // void _openWhatsAppChat() async {
-  //   // String message = Uri.encodeComponent("Hello, I'm reaching out from my Flutter app!");
-  //   final Uri phoneNumber = Uri.parse('tel:+123456789');
-  //   final Uri whatsappUrl = Uri.parse('https://wa.me/0895421891378');
-
-  //   if (await canLaunchUrl(whatsappUrl)) {
-  //     await launchUrl(whatsappUrl);
-  //   } else {
-  //     throw 'Could not launch $whatsappUrl';
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
