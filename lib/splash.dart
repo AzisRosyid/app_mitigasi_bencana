@@ -93,6 +93,7 @@ class LocationPermissionHandler extends StatefulWidget {
 class _LocationPermissionHandlerState extends State<LocationPermissionHandler> {
   @override
   void initState() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     super.initState();
     _getLocation();
   }
@@ -170,7 +171,7 @@ class _LocationPermissionHandlerState extends State<LocationPermissionHandler> {
       ),
     );
   }
-  
+
   Future<String> getLocationData() async {
     try {
       // Get current position using Geolocator
