@@ -66,6 +66,7 @@ flutter:
     - assets/images/motor.png
     - assets/images/car.png
     - assets/images/truck.png
+    - assets/images/current.png
     - assets/images/arrow_right.png
     - assets/images/arrow_down.png
     - assets/images/lapor.png

@@ -3,13 +3,13 @@ import 'dart:io';
 import 'package:app_mitigasi_bencana/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 
 import 'package:permission_handler/permission_handler.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Navigasi extends StatefulWidget {
   @override
@@ -25,6 +25,7 @@ class _NavigasiState extends State<Navigasi> {
   bool _isLocationPoly = false;
   BitmapDescriptor markerIconType1 = BitmapDescriptor.defaultMarker;
   BitmapDescriptor markerIconType2 = BitmapDescriptor.defaultMarker;
+  BitmapDescriptor currentIcon = BitmapDescriptor.defaultMarker;
   // Create custom marker icons for each type
 
   void _toggleBottomPopup() {
@@ -33,14 +34,32 @@ class _NavigasiState extends State<Navigasi> {
     });
   }
 
+  Place? polylinePlace = null;
+  Marker? targetMarker = null;
+
   void _setPolyline() {
+    polylinePlace = selectedPlace;
+    targetMarker = Marker(
+        markerId: MarkerId('targetLocation'),
+        position: LatLng(polylinePlace!.latitude, polylinePlace!.longitude),
+        infoWindow: InfoWindow(title: 'Target Location'),
+        icon: currentIcon,
+        anchor: Offset(.5, .5),
+        onTap: () {
+          _onTargetTap();
+          _hideBottomPopup();
+        });
+    _loadPolyline();
+  }
+
+  void _loadPolyline() {
     _polylines.clear();
     _polylines.add(Polyline(
       polylineId: PolylineId('route'),
       color: Color(0xFFCD0000),
       points: [
         LatLng(currentPosition!.latitude, currentPosition!.longitude),
-        LatLng(selectedPlace!.latitude, selectedPlace!.longitude)
+        LatLng(polylinePlace!.latitude, polylinePlace!.longitude)
       ],
       width: 5, // Adjust polyline width as needed
     ));
@@ -91,6 +110,7 @@ class _NavigasiState extends State<Navigasi> {
           position: locationPosition,
           icon: markerIcon,
           infoWindow: InfoWindow(title: location.name),
+          anchor: Offset(.5, .5),
           onTap: () {
             _showPosition(locationPosition);
             double newZoom = 16;
@@ -120,6 +140,14 @@ class _NavigasiState extends State<Navigasi> {
         .then((icon) {
       setState(() {
         markerIconType2 = icon;
+      });
+    });
+    BitmapDescriptor.fromAssetImage(
+            const ImageConfiguration(size: Size(30, 30)),
+            'assets/images/current.png')
+        .then((icon) {
+      setState(() {
+        currentIcon = icon;
       });
     });
   }
@@ -192,7 +220,7 @@ class _NavigasiState extends State<Navigasi> {
   void _startTimer() {
     _timer = Timer.periodic(Duration(seconds: 2), (timer) {
       _getLocation();
-      if (_isLocationPoly) _setPolyline();
+      if (_isLocationPoly) _loadPolyline();
     });
   }
 
@@ -323,133 +351,184 @@ class _NavigasiState extends State<Navigasi> {
         // Centered GestureDetector wrapped AlertDialog
         Center(
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 130, horizontal: 0),
+            padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * .08,
+                bottom: MediaQuery.of(context).size.height * .19),
             child: GestureDetector(
               onTap: () {
                 _hideAlertDialog(); // Hide the AlertDialog when tapped
               },
               child: AlertDialog(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16.0)
-                ),
+                    borderRadius: BorderRadius.circular(16.0)),
                 content: ListView(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Legenda Peta',
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
-                            Divider(
-                              color: Color(0xFF930000), // Color of the line
-                              thickness: 1.5, // Adjust the thickness as needed
-                            ),
-                            SizedBox(height: 14.0),
-                            Container(
-                              width: double.infinity,
-                              margin: EdgeInsets.only(right: 8, left: 30),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(children: [
-                                    Image.asset('assets/images/location_type1.png', width: 30,),
-                                    SizedBox(width: 8.0),
-                                    Text(
-                                      "Shelter",
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 14),
-                                    ),
-                                  ]),
-                                  SizedBox(height: 12.0),
+                  shrinkWrap: true,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Legenda Peta',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                          Divider(
+                            color: Color(0xFF930000), // Color of the line
+                            thickness: 1.5, // Adjust the thickness as needed
+                          ),
+                          SizedBox(height: 14.0),
+                          Container(
+                            width: double.infinity,
+                            margin: EdgeInsets.only(right: 8, left: 30),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
                                 Row(children: [
-                                    Image.asset('assets/images/location_type2.png', width: 30,),
-                                    SizedBox(width: 8.0),
-                                    Text(
-                                      "Titik Kumpul",
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 14),
-                                    ),
-                                  ]),
-                                  SizedBox(height: 12.0),
+                                  Image.asset(
+                                    'assets/images/location_type1.png',
+                                    width: 30,
+                                  ),
+                                  SizedBox(width: 8.0),
+                                  Text(
+                                    "Shelter",
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 14),
+                                  ),
+                                ]),
+                                SizedBox(height: 12.0),
                                 Row(children: [
-                                    Image.asset('assets/images/zone1.png', width: 30,),
-                                    SizedBox(width: 8.0),
-                                    Text(
-                                      "Zona Aman",
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 14),
-                                    ),
-                                  ]),
-                                  SizedBox(height: 12.0),
-                                                                  Row(children: [
-                                    Image.asset('assets/images/zone2.png', width: 30,),
-                                    SizedBox(width: 8.0),
-                                    Text(
-                                      "Zona Siaga",
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 14),
-                                    ),
-                                  ]),
-                                  SizedBox(height: 12.0),
-                                                                  Row(children: [
-                                    Image.asset('assets/images/zone3.png', width: 30,),
-                                    SizedBox(width: 8.0),
-                                    Text(
-                                      "Zona Bahaya",
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 14),
-                                    ),
-                                  ]),
-                                  SizedBox(height: 14.0),
-                                                                  Row(children: [
-                                    Image.asset('assets/images/motor.png', width: 30,),
-                                    SizedBox(width: 8.0),
-                                    Text(
-                                      "Akses Motor",
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 14),
-                                    ),
-                                  ]),
-                                  SizedBox(height: 16.0),
-                                                                  Row(children: [
-                                    Image.asset('assets/images/car.png', width: 30,),
-                                    SizedBox(width: 8.0),
-                                    Text(
-                                      "Akses Mobil",
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 14),
-                                    ),
-                                  ]),
-                                  SizedBox(height: 12.0),
-                                                                  Row(children: [
-                                    Image.asset('assets/images/truck.png', width: 30,),
-                                    SizedBox(width: 8.0),
-                                    Text(
-                                      "Akses Truk",
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 14),
-                                    ),
-                                  ]),
-                                  SizedBox(height: 12.0),
-                                ],
-                              ),
+                                  Image.asset(
+                                    'assets/images/location_type2.png',
+                                    width: 30,
+                                  ),
+                                  SizedBox(width: 8.0),
+                                  Text(
+                                    "Titik Kumpul",
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 14),
+                                  ),
+                                ]),
+                                SizedBox(height: 12.0),
+                                Row(children: [
+                                  Image.asset(
+                                    'assets/images/current.png',
+                                    width: 30,
+                                  ),
+                                  SizedBox(width: 8.0),
+                                  Text(
+                                    "Lokasi Saat Ini",
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 14),
+                                  ),
+                                ]),
+                                SizedBox(height: 12.0),
+                                Row(children: [
+                                  Image.asset(
+                                    'assets/images/zone1.png',
+                                    width: 30,
+                                  ),
+                                  SizedBox(width: 8.0),
+                                  Text(
+                                    "Zona Aman",
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 14),
+                                  ),
+                                ]),
+                                SizedBox(height: 12.0),
+                                Row(children: [
+                                  Image.asset(
+                                    'assets/images/zone2.png',
+                                    width: 30,
+                                  ),
+                                  SizedBox(width: 8.0),
+                                  Text(
+                                    "Zona Siaga",
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 14),
+                                  ),
+                                ]),
+                                SizedBox(height: 12.0),
+                                Row(children: [
+                                  Image.asset(
+                                    'assets/images/zone3.png',
+                                    width: 30,
+                                  ),
+                                  SizedBox(width: 8.0),
+                                  Text(
+                                    "Zona Bahaya",
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 14),
+                                  ),
+                                ]),
+                                SizedBox(height: 14.0),
+                                Row(children: [
+                                  Image.asset(
+                                    'assets/images/motor.png',
+                                    width: 30,
+                                  ),
+                                  SizedBox(width: 8.0),
+                                  Text(
+                                    "Akses Motor",
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 14),
+                                  ),
+                                ]),
+                                SizedBox(height: 16.0),
+                                Row(children: [
+                                  Image.asset(
+                                    'assets/images/car.png',
+                                    width: 30,
+                                  ),
+                                  SizedBox(width: 8.0),
+                                  Text(
+                                    "Akses Mobil",
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 14),
+                                  ),
+                                ]),
+                                SizedBox(height: 12.0),
+                                Row(children: [
+                                  Image.asset(
+                                    'assets/images/truck.png',
+                                    width: 30,
+                                  ),
+                                  SizedBox(width: 8.0),
+                                  Text(
+                                    "Akses Truk",
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 14),
+                                  ),
+                                ]),
+                                SizedBox(height: 12.0),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
+        ),
       ],
     );
+  }
+
+  Future<void> openGoogleMaps() async {
+    String message =
+        Uri.encodeComponent("Hello, I'm reaching out from my Flutter app!");
+    final Uri phoneNumber = Uri.parse('tel:+123456789');
+    // final Uri googleMapsUrl = Uri.parse(
+    //     'https://www.google.com/maps/dir/-7.7755482,110.3488453/-7.776484,110.3513246/@-7.7748853,110.3523675,16z?entry=ttu');
+    final Uri googleMapsUrl = Uri.parse(
+        'https://www.google.com/maps/dir/${currentPosition!.latitude},${currentPosition!.longitude}/${selectedPlace!.latitude},${selectedPlace!.longitude}/');
+
+    await launchUrl(googleMapsUrl);
   }
 
   void _onCurrentTap() {
@@ -460,13 +539,38 @@ class _NavigasiState extends State<Navigasi> {
     ));
   }
 
+  void _onTargetTap() {
+    double newZoom = 16;
+    _mapController.animateCamera(CameraUpdate.newLatLngZoom(
+      LatLng(targetMarker!.position.latitude, targetMarker!.position.longitude),
+      newZoom,
+    ));
+  }
+
+  void _onLocationTap() {
+    double newZoom = 16;
+    _mapController
+        .animateCamera(CameraUpdate.newLatLngZoom(
+      LatLng(currentPosition!.latitude, currentPosition!.longitude),
+      newZoom,
+    ))
+        .then((value) {
+      // Delay for 2 seconds before calling openGoogleMaps
+      Future.delayed(Duration(seconds: 1, milliseconds: 500), () {
+        openGoogleMaps();
+      });
+    });
+  }
+
   Widget build(BuildContext context) {
     _markers.add(
       Marker(
           markerId: MarkerId('userLocation'),
           position: LatLng(currentPosition?.latitude ?? 0.0,
               currentPosition?.longitude ?? 0.0),
-          infoWindow: InfoWindow(title: 'Your Location'),
+          infoWindow: InfoWindow(title: 'My Location'),
+          icon: currentIcon,
+          anchor: Offset(.5, .5),
           onTap: () {
             _onCurrentTap();
             _hideBottomPopup();
@@ -691,7 +795,7 @@ class PlaceCard extends StatelessWidget {
                     onPressed: () {
                       navigasiState._toggleBottomPopup();
                       navigasiState._setPolyline();
-                      navigasiState._onCurrentTap();
+                      navigasiState._onLocationTap();
                     },
                     style: ButtonStyle(
                       backgroundColor:

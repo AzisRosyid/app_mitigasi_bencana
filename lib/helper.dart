@@ -300,22 +300,4 @@ class Place {
 // }
 
 Position? currentPosition;
-Future<String> getLocationData() async {
-  try {
-    // Get current position using Geolocator
-    Position position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
-    );
-
-    // Get address information using Geocoding
-    List<Placemark> placemarks =
-        await placemarkFromCoordinates(position.latitude, position.longitude);
-    currentPosition = position;
-
-    // Construct the location message
-    return "Latitude: ${position.latitude}, Longitude: ${position.longitude}\n" +
-        "Address: ${placemarks[0].name}, ${placemarks[0].subLocality}, ${placemarks[0].locality}, ${placemarks[0].administrativeArea}, ${placemarks[0].country}";
-  } catch (e) {
-    return "Error fetching location data: $e";
-  }
-}
+Place? startPlace = null;
