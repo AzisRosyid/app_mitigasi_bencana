@@ -104,11 +104,6 @@ class Home extends StatelessWidget {
         child: MaterialButton(
           onPressed: () {
             switch (page) {
-              case 0:
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  startPlace = null;
-                  return Navigasi();
-                }));
               case 1:
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return Education();
@@ -276,6 +271,7 @@ class Home extends StatelessWidget {
                                           Navigator.push(context,
                                               MaterialPageRoute(
                                                   builder: (context) {
+                                            startPlace = null;
                                             return Navigasi();
                                           }));
                                         },
