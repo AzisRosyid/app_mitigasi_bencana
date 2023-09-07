@@ -645,7 +645,7 @@ class _NavigasiState extends State<Navigasi> {
                   )
                 : CameraPosition(
                     target: LatLng(
-                        startPlace!.latitude, currentPosition!.longitude),
+                        startPlace!.latitude - 0.003, startPlace!.longitude),
                     zoom: 16,
                   ),
             markers: _markers,
