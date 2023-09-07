@@ -1,4 +1,5 @@
 import 'package:app_mitigasi_bencana/books.dart';
+import 'package:app_mitigasi_bencana/helper.dart';
 import 'package:app_mitigasi_bencana/lapor.dart';
 import 'package:app_mitigasi_bencana/navigasi.dart';
 import 'package:flutter/material.dart';
@@ -81,7 +82,6 @@ class Home extends StatelessWidget {
   //   );
   // }
 
-
   Widget _opsiMenuItem(@required BuildContext context, @required int page,
       @required String image, @required String name) {
     return Container(
@@ -106,6 +106,7 @@ class Home extends StatelessWidget {
             switch (page) {
               case 0:
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  startPlace = null;
                   return Navigasi();
                 }));
               case 1:

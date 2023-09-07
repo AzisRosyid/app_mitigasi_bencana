@@ -1,4 +1,5 @@
 import 'package:app_mitigasi_bencana/helper.dart';
+import 'package:app_mitigasi_bencana/navigasi.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -480,6 +481,10 @@ class PlaceCard extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
+                  startPlace = place;
+                  Navigator.push(context, MaterialPageRoute(builder: (i) {
+                    return Navigasi();
+                  }));
                 },
                 style: ButtonStyle(
                   backgroundColor:

@@ -210,6 +210,10 @@ class _NavigasiState extends State<Navigasi> {
     _addMarkers();
     _addCircles();
     _startTimer();
+    if (startPlace != null) {
+      selectedPlace = startPlace;
+      _toggleBottomPopup();
+    }
   }
 
   void _onMapCreated(GoogleMapController controller) {
@@ -633,11 +637,17 @@ class _NavigasiState extends State<Navigasi> {
         children: [
           GoogleMap(
             onMapCreated: _onMapCreated,
-            initialCameraPosition: CameraPosition(
-              target: LatLng(currentPosition?.latitude ?? 0.0,
-                  currentPosition?.longitude ?? 0.0),
-              zoom: 16,
-            ),
+            initialCameraPosition: (startPlace == null)
+                ? CameraPosition(
+                    target: LatLng(currentPosition?.latitude ?? 0.0,
+                        currentPosition?.longitude ?? 0.0),
+                    zoom: 16,
+                  )
+                : CameraPosition(
+                    target: LatLng(
+                        startPlace!.latitude, currentPosition!.longitude),
+                    zoom: 16,
+                  ),
             markers: _markers,
             polylines: _polylines,
             circles: _circles,
