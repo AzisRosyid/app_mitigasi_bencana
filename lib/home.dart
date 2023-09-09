@@ -2,6 +2,8 @@ import 'package:app_mitigasi_bencana/books.dart';
 import 'package:app_mitigasi_bencana/helper.dart';
 import 'package:app_mitigasi_bencana/lapor.dart';
 import 'package:app_mitigasi_bencana/navigasi.dart';
+import 'package:app_mitigasi_bencana/kuis.dart';
+import 'package:app_mitigasi_bencana/shelter.dart';
 import 'package:flutter/material.dart';
 import 'package:stroke_text/stroke_text.dart';
 
@@ -112,6 +114,12 @@ class Home extends StatelessWidget {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return Lapor();
                 }));
+              case 3:
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Shelter()));
+              case 5:
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Kuis()));
             }
           },
           child: Column(
@@ -240,12 +248,12 @@ class Home extends StatelessWidget {
                                 top: 0,
                               ),
                               child: Container(
-                                  height: 270,
+                                  height: 230,
                                   width: double.infinity,
                                   child: Container(
                                       decoration: BoxDecoration(
                                         borderRadius:
-                                            BorderRadius.circular(10.0),
+                                            BorderRadius.circular(16.0),
                                         image: DecorationImage(
                                             image: AssetImage(
                                                 "assets/images/map.png"),
@@ -301,7 +309,7 @@ class Home extends StatelessWidget {
                             ),
                             Container(
                               // Menu Item
-                              height: 140,
+                              height: 390,
                               child: GridView.count(
                                 padding: EdgeInsets.only(top: 8, bottom: 8),
                                 crossAxisCount: 2,
@@ -312,7 +320,16 @@ class Home extends StatelessWidget {
                                   _opsiMenuItem(context, 1,
                                       "assets/images/book.png", "Edukasi"),
                                   _opsiMenuItem(context, 2,
-                                      "assets/images/report.png", "Lapor")
+                                      "assets/images/report.png", "Lapor"),
+                                  _opsiMenuItem(
+                                      context,
+                                      3,
+                                      "assets/images/shelter.png",
+                                      "Info Shelter"),
+                                  _opsiMenuItem(context, 4,
+                                      "assets/images/donation.png", "Donasi"),
+                                  _opsiMenuItem(context, 5,
+                                      "assets/images/quiz.png", "Kuis")
                                 ],
                               ),
                             ),

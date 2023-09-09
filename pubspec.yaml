@@ -66,6 +66,9 @@ flutter:
     - assets/images/motor.png
     - assets/images/car.png
     - assets/images/truck.png
+    - assets/images/quiz.png
+    - assets/images/shelter.png
+    - assets/images/donation.png
     - assets/images/current.png
     - assets/images/arrow_right.png
     - assets/images/arrow_down.png

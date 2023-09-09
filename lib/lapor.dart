@@ -11,26 +11,6 @@ class Lapor extends StatefulWidget {
 class _LaporState extends State<Lapor> {
   Place? selectedPlace;
 
-  // Method to show the item description in a pop-up dialog.
-  void showItemDescription(Place place) {
-    setState(() {
-      selectedPlace = place;
-    });
-
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          padding: EdgeInsets.all(8.0),
-          child: Text(
-            'Description for goes here.', // Replace with the actual description for the selected item.
-            style: TextStyle(fontSize: 18.0),
-          ),
-        );
-      },
-    );
-  }
-
   Future<void> _openWhatsAppChat() async {
     String message =
         Uri.encodeComponent("Hello, I'm reaching out from my Flutter app!");
