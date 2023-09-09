@@ -55,7 +55,11 @@ flutter:
   assets:
     - assets/images/logo.jpg
     - assets/images/logo.png
+    - assets/images/close.png
+    - assets/images/check.png
     - assets/images/report.png
+    - assets/images/home.png
+    - assets/images/checklist.png
     - assets/images/map.png
     - assets/images/back.png
     - assets/images/book.png
