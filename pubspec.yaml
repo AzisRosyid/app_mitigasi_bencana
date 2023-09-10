@@ -60,6 +60,7 @@ flutter:
     - assets/images/report.png
     - assets/images/home.png
     - assets/images/checklist.png
+    - assets/images/donate_default.png
     - assets/images/map.png
     - assets/images/back.png
     - assets/images/book.png

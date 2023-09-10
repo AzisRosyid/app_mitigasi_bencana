@@ -1,4 +1,5 @@
 import 'package:app_mitigasi_bencana/books.dart';
+import 'package:app_mitigasi_bencana/donasi.dart';
 import 'package:app_mitigasi_bencana/helper.dart';
 import 'package:app_mitigasi_bencana/lapor.dart';
 import 'package:app_mitigasi_bencana/navigasi.dart';
@@ -29,61 +30,6 @@ class WaveClipper extends CustomClipper<Path> {
 class Home extends StatelessWidget {
   const Home({super.key});
 
-  // Widget _listItemH(
-  //   @required BuildContext context,
-  //   @required Color color,
-  //   @required String title,
-  //   @required String subtitle,
-  // ) {
-  //   return MaterialButton(
-  //     onPressed: () {
-  //       Navigator.push(context, MaterialPageRoute(builder: (context) {
-  //         return OrderTrackingPage();
-  //       }));
-  //     },
-  //     padding: EdgeInsets.zero,
-  //     child: Container(
-  //       margin: EdgeInsets.symmetric(horizontal: 10.0),
-  //       height: 120,
-  //       width: 240,
-  //       decoration: BoxDecoration(
-  //         color: color,
-  //         borderRadius: BorderRadius.circular(15.0),
-  //         border:
-  //             Border.all(color: Colors.blueAccent, width: 1.0), // Add border
-  //         boxShadow: [
-  //           BoxShadow(
-  //             color: Colors.grey.withOpacity(0.5), // Shadow color
-  //             spreadRadius: 2,
-  //             blurRadius: 5,
-  //             offset: Offset(0, 3), // Shadow position
-  //           ),
-  //         ],
-  //       ),
-  //       child: Container(
-  //         padding: EdgeInsets.only(left: 20),
-  //         child: Column(
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           mainAxisAlignment: MainAxisAlignment.center,
-  //           children: [
-  //             Text(
-  //               title,
-  //               style: TextStyle(fontSize: 22, color: Colors.white),
-  //             ),
-  //             SizedBox(
-  //               height: 5,
-  //             ),
-  //             Text(
-  //               subtitle,
-  //               style: TextStyle(fontSize: 19, color: Colors.white70),
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
   Widget _opsiMenuItem(@required BuildContext context, @required int page,
       @required String image, @required String name) {
     return Container(
@@ -107,16 +53,17 @@ class Home extends StatelessWidget {
           onPressed: () {
             switch (page) {
               case 1:
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Education();
-                }));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Education()));
               case 2:
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Lapor();
-                }));
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Lapor()));
               case 3:
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => Shelter()));
+              case 4:
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Donasi()));
               case 5:
                 Navigator.push(
                     context, MaterialPageRoute(builder: (context) => Kuis()));
@@ -126,7 +73,7 @@ class Home extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                height: 60,
+                height: 40,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage(image), fit: BoxFit.contain)),
@@ -137,7 +84,7 @@ class Home extends StatelessWidget {
               Text(
                 name,
                 style: TextStyle(
-                    fontSize: 17,
+                    fontSize: 12,
                     color: Colors.black,
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.bold),
@@ -309,12 +256,12 @@ class Home extends StatelessWidget {
                             ),
                             Container(
                               // Menu Item
-                              height: 390,
+                              height: 180,
                               child: GridView.count(
                                 padding: EdgeInsets.only(top: 8, bottom: 8),
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 12,
-                                mainAxisSpacing: 8,
+                                crossAxisCount: 3,
+                                crossAxisSpacing: 6,
+                                mainAxisSpacing: 4,
                                 childAspectRatio: 1.30,
                                 children: [
                                   _opsiMenuItem(context, 1,

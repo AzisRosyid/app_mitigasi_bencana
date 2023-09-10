@@ -1,7 +1,6 @@
 import 'package:app_mitigasi_bencana/helper.dart';
 import 'package:app_mitigasi_bencana/navigasi.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class Shelter extends StatefulWidget {
   @override
@@ -90,12 +89,12 @@ class _ShelterState extends State<Shelter> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                         child: Container(
-                          color: Colors.grey,
+                          color: Colors.grey.shade400,
                           width: double.infinity,
                           height:
                               200, // Add a background color for the image frame
                           child: Image.asset(
-                            'Ini Gambar Default!',
+                            'assets/images/shelter.png',
                             fit: BoxFit.cover,
                           ),
                         ),

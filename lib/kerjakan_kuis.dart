@@ -253,7 +253,7 @@ class _KerjakanKuisState extends State<KerjakanKuis> {
                                       ? Colors.white
                                       : answers[index] !=
                                               quiz.questions[index].correct
-                                          ? Colors.red
+                                          ? Color(0xFF9D0000)
                                           : Colors.green,
                                   boxShadow: [
                                     BoxShadow(
