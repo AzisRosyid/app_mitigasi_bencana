@@ -2,6 +2,7 @@ import 'package:app_mitigasi_bencana/helper.dart';
 import 'package:app_mitigasi_bencana/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gif/flutter_gif.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -97,37 +98,53 @@ class _LocationPermissionHandlerState extends State<LocationPermissionHandler> {
     super.initState();
     _getLocation();
   }
+Future<void> _getLocation() async {
+  var status = await Permission.location.request();
 
-  Future<void> _getLocation() async {
-    var status = await Permission.location.request();
+  if (status.isGranted) {
+    final startTime = DateTime.now();
 
-    if (status.isGranted) {
-      // Get the location and address
-      var locationData = await getLocationData();
-      print('Location permission granted. Navigating to Home screen.');
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        return Home(); // Redirect to the Home screen
-      }));
-    } else {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('Location Permission Required'),
-            content: Text('Please grant location permission to use this app.'),
-            actions: <Widget>[
-              TextButton(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
+    // Get the location and address
+    var locationData = await getLocationData();
+
+    final endTime = DateTime.now();
+    final elapsedTime = endTime.difference(startTime);
+
+    // Calculate the remaining delay time (minimum 2 seconds)
+    final minimumDelay = Duration(seconds: 3);
+    final remainingDelay = elapsedTime.isNegative
+        ? minimumDelay
+        : (minimumDelay - elapsedTime);
+
+    if (remainingDelay.inMilliseconds > 0) {
+      // Delay for the remaining time
+      await Future.delayed(remainingDelay);
     }
+
+    print('Location permission granted. Navigating to Home screen.');
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+      return Home(); // Redirect to the Home screen
+    }));
+  } else {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Location Permission Required'),
+          content: Text('Please grant location permission to use this app.'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -137,8 +154,8 @@ class _LocationPermissionHandlerState extends State<LocationPermissionHandler> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color(0xFFB60000),
-              Color(0xFF350000),
+              Color(0xFF000000),
+              Color(0xFF000000),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -147,25 +164,12 @@ class _LocationPermissionHandlerState extends State<LocationPermissionHandler> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'Edu MIT',
-              style: TextStyle(
-                fontSize: 45,
-                color: Colors.white,
-                fontFamily: 'Knewave',
-              ),
-            ),
-            SizedBox(
-              height: 4,
-            ),
-            Text(
-              'Aplikasi Edukasi dan Mitigasi Bencana',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.white,
-                fontFamily: 'Inter',
-              ),
-            )
+            Image.asset(
+            'assets/images/intro.gif',
+            repeat: ImageRepeat.noRepeat,
+            width: MediaQuery.of(context).size.width, // Fit the width of the device
+            fit: BoxFit.contain, // Maintain aspect ratio and fit within the width
+          ),
           ],
         ),
       ),

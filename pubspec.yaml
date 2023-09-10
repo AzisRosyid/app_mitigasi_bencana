@@ -24,6 +24,7 @@ dependencies:
   geolocator: ^10.0.0
   geocoding: ^2.0.4
   permission_handler: ^10.4.3
+  flutter_gif: any
 
 flutter_launcher_icons:
   android: true
@@ -53,6 +54,7 @@ flutter:
       fonts:
         - asset: assets/fonts/Knewave-Regular.ttf
   assets:
+    - assets/images/intro.gif
     - assets/images/logo.jpg
     - assets/images/logo.png
     - assets/images/close.png
