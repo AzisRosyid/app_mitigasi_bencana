@@ -10,6 +10,7 @@ class ReadBook extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white.withOpacity(0.975),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60), // Set the preferred height of the AppBar
         child: Container(

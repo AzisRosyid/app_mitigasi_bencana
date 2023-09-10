@@ -60,7 +60,8 @@ class SelesaiKuis extends StatelessWidget {
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
-            Column(
+            ListView(
+              children: [Column(
               children: [
                 SizedBox(
                   height: 12,
@@ -74,7 +75,7 @@ class SelesaiKuis extends StatelessWidget {
                 ),
                 Image.asset(
                   'assets/images/checklist.png',
-                  width: 250,
+                  width: 220,
                 ),
                 SizedBox(
                   height: 18,
@@ -122,7 +123,7 @@ class SelesaiKuis extends StatelessWidget {
                       ),
                     ]),
               ],
-            ),
+            )]),
             Container(
               height: 160,
               alignment: Alignment.bottomCenter,

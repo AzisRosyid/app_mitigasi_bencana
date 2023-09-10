@@ -164,6 +164,9 @@ Future<void> _getLocation() async {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(
+              height: 20,
+            ),
             Image.asset(
             'assets/images/intro.gif',
             repeat: ImageRepeat.noRepeat,
