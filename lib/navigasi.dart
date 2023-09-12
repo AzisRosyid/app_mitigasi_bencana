@@ -1,8 +1,9 @@
 import 'dart:io';
 
+import 'package:app_mitigasi_bencana/data/place.dart';
+import 'package:app_mitigasi_bencana/data/zone.dart';
 import 'package:app_mitigasi_bencana/helper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -161,7 +162,7 @@ class _NavigasiState extends State<Navigasi> {
         Circle(
           circleId: CircleId('circle$i'), // Use a unique circle ID
           center: zonePosition,
-          radius: zone.radius * 200, // Use the radius from the Zone object
+          radius: zone.radius * 1000, // Use the radius from the Zone object
           strokeWidth: 1,
           strokeColor: _getCircleStrokeColor(
               zone.type), // Function to get stroke color based on zone type
@@ -648,6 +649,7 @@ class _NavigasiState extends State<Navigasi> {
             markers: _markers,
             polylines: _polylines,
             circles: _circles,
+            
           ),
           Positioned.fill(
             child: Listener(

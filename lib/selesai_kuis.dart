@@ -1,5 +1,4 @@
-import 'package:app_mitigasi_bencana/helper.dart';
-import 'package:app_mitigasi_bencana/home.dart';
+import 'package:app_mitigasi_bencana/data/quiz.dart';
 import 'package:app_mitigasi_bencana/kerjakan_kuis.dart';
 import 'package:flutter/material.dart';
 

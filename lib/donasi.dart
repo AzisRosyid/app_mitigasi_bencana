@@ -1,5 +1,5 @@
+import 'package:app_mitigasi_bencana/data/place.dart';
 import 'package:app_mitigasi_bencana/detail_donasi.dart';
-import 'package:app_mitigasi_bencana/helper.dart';
 import 'package:flutter/material.dart';
 
 class Donasi extends StatefulWidget {

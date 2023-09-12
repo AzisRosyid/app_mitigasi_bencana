@@ -1,3 +1,4 @@
+import 'package:app_mitigasi_bencana/data/place.dart';
 import 'package:app_mitigasi_bencana/helper.dart';
 import 'package:app_mitigasi_bencana/navigasi.dart';
 import 'package:flutter/material.dart';

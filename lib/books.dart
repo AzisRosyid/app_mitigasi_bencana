@@ -1,4 +1,4 @@
-import 'package:app_mitigasi_bencana/helper.dart';
+import 'package:app_mitigasi_bencana/data/book.dart';
 import 'package:app_mitigasi_bencana/read_book.dart';
 import 'package:flutter/material.dart';
 

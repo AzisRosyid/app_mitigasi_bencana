@@ -85,6 +85,11 @@ flutter:
     - assets/images/zone3.png
     - assets/images/location_type1.png
     - assets/images/location_type2.png
+    - assets/zone/krb1.kmz
+    - assets/zone/krb2.kmz
+    - assets/zone/krb3.kmz
+    - assets/zone/terdampak_langsung.kmz
+    - assets/zone/tidak_terdampak_langsung.kmz
     - assets/images/books/book1.png
     - assets/pdf/book1.pdf
     - assets/images/books/book2.png

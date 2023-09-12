@@ -1,6 +1,5 @@
 import 'dart:async';
-
-import 'package:app_mitigasi_bencana/helper.dart';
+import 'package:app_mitigasi_bencana/data/quiz.dart';
 import 'package:app_mitigasi_bencana/selesai_kuis.dart';
 import 'package:flutter/material.dart';
 
