@@ -86,21 +86,37 @@ class _ShelterState extends State<Shelter> {
                 child: Column(
                   children: <Widget>[
                     Container(
-                      margin: EdgeInsets.all(8), // Adjust margin as needed
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(12)),
-                        child: Container(
-                          color: Colors.grey.shade400,
-                          width: double.infinity,
-                          height:
-                              200, // Add a background color for the image frame
-                          child: Image.asset(
-                            'assets/images/shelter.png',
-                            fit: BoxFit.cover,
+                    margin: EdgeInsets.all(8), // Adjust margin as needed
+                    child: Stack(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                          child: Container(
+                            color: Colors
+                                .white, // Add a background color for the image frame
+                            child: Image.asset(
+                              'assets/images/shelter_default.png',
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                              height: 200.0, // Adjust the height as needed
+                            ),
                           ),
                         ),
-                      ),
+                        Positioned.fill(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Color(0xFF930000), // Border color
+                                width: 2.2, // Border width
+                              ),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(12)),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
+                  ),
                     Padding(
                       padding: const EdgeInsets.only(left: 16, right: 16, bottom: 6),
                       child: Row(

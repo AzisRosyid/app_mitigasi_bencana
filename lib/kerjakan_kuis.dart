@@ -217,9 +217,10 @@ class _KerjakanKuisState extends State<KerjakanKuis> {
               ],
             ),
             Container(
-              height: 250,
+              height: 300,
               alignment: Alignment.bottomCenter,
               child: ListView.builder(
+                reverse: true,
                 itemCount: quiz.questions[index].answers.length,
                 itemBuilder: (BuildContext context, int i) {
                   final answer = quiz.questions[index].answers[i];
@@ -271,14 +272,21 @@ class _KerjakanKuisState extends State<KerjakanKuis> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          '${answer}',
-                                          style: TextStyle(
-                                              color: idAnswer != i
-                                                  ? Color(0xFF9D0000)
-                                                  : Colors.white,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold),
+                                        Container(
+                                          margin: EdgeInsets.symmetric(vertical: 8),
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.7, // 80% of device width
+                                          child: Text(
+                                            '${answer}', // Truncate text if longer than 24 characters
+                                            style: TextStyle(
+                                                color: idAnswer != i
+                                                    ? Color(0xFF9D0000)
+                                                    : Colors.white,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold),
+                                          ),
                                         ),
                                         Stack(
                                           children: [

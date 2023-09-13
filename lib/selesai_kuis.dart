@@ -68,6 +68,7 @@ class SelesaiKuis extends StatelessWidget {
                 Text(
                   "${quiz.title}",
                   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
                 ),
                 SizedBox(
                   height: 16,

@@ -91,7 +91,8 @@ class _DonasiState extends State<Donasi> {
                             child: Image.asset(
                               'assets/images/donate_default.png',
                               fit: BoxFit.cover,
-                              height: 210.0, // Adjust the height as needed
+                              width: double.infinity,
+                              height: 200.0, // Adjust the height as needed
                             ),
                           ),
                         ),
@@ -124,7 +125,7 @@ class _DonasiState extends State<Donasi> {
                         ),
                         SizedBox(height: 8.0),
                         Text(
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula velit eu est cursus, non varius arcu gravida.',
+                          'Setiap bantuan Anda sangat berarti bagi kami, dan kami sangat menghargai dukungan Anda. Untuk berdonasi atau informasi lebih lanjut, silahkan hubungi',
                           style: TextStyle(
                             fontSize: 14.0,
                             color: Colors.black,

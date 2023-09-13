@@ -75,11 +75,12 @@ flutter:
     - assets/images/truck.png
     - assets/images/quiz.png
     - assets/images/shelter.png
+    - assets/images/shelter_default.png
     - assets/images/donation.png
     - assets/images/current.png
     - assets/images/arrow_right.png
     - assets/images/arrow_down.png
-    - assets/images/lapor.png
+    - assets/images/lapor.jpeg
     - assets/images/zone1.png
     - assets/images/zone2.png
     - assets/images/zone3.png

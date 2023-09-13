@@ -71,6 +71,7 @@ class DetailDonasi extends StatelessWidget {
                       color: Color(0xFF930000),
                       fontSize: 28,
                       fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
                 ),
                 SizedBox(
                   height: 4,
@@ -87,7 +88,8 @@ class DetailDonasi extends StatelessWidget {
                           child: Image.asset(
                             'assets/images/donate_default.png',
                             fit: BoxFit.cover,
-                            height: 210.0, // Adjust the height as needed
+                            width: double.infinity,
+                            height: 200.0, // Adjust the height as needed
                           ),
                         ),
                       ),

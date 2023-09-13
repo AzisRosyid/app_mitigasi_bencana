@@ -104,7 +104,8 @@ class _KuisState extends State<Kuis> {
                             children: [
                               Column(
                                 children: <Widget>[
-                                  Align(
+                                  Container(
+                                    margin: EdgeInsets.symmetric(vertical: 8),
                                     alignment: Alignment.topLeft,
                                     child: Container(
                                       width: 170, // Set the maximum width
@@ -115,8 +116,6 @@ class _KuisState extends State<Kuis> {
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,
                                         ),
-                                        overflow: TextOverflow
-                                            .ellipsis, // Show ellipsis for overflow
                                       ),
                                     ),
                                   ),

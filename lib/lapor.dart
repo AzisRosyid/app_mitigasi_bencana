@@ -13,12 +13,10 @@ class _LaporState extends State<Lapor> {
   Place? selectedPlace;
 
   Future<void> _openWhatsAppChat() async {
-    String message =
-        Uri.encodeComponent("Hello, I'm reaching out from my Flutter app!");
-    final Uri phoneNumber = Uri.parse('tel:+123456789');
-    final Uri whatsappUrl = Uri.parse('https://wa.me/62895421891378');
+    final Uri phoneNumber = Uri.parse('tel:0274868504');
+   // final Uri whatsappUrl = Uri.parse('https://wa.me/62895421891378');
 
-    await launchUrl(whatsappUrl);
+    await launchUrl(phoneNumber);
   }
 
   @override
@@ -99,8 +97,9 @@ class _LaporState extends State<Lapor> {
                             color: Colors
                                 .white, // Add a background color for the image frame
                             child: Image.asset(
-                              'assets/images/lapor.png',
+                              'assets/images/lapor.jpeg',
                               fit: BoxFit.cover,
+                              width: double.infinity,
                               height: 200.0, // Adjust the height as needed
                             ),
                           ),
@@ -125,19 +124,16 @@ class _LaporState extends State<Lapor> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Text(
-                          'Badan Penanggulangan',
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 16),
+                          child: Text(
+                          'Badan Penanggulangan Bencana Daerah Sleman',
                           style: TextStyle(
                               color: Color(0xFF9D0000),
                               fontSize: 20,
                               fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
                         ),
-                        Text(
-                          'Bencana Daerah Jogja',
-                          style: TextStyle(
-                              color: Color(0xFF9D0000),
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
                         ),
                         SizedBox(height: 16.0),
                         Row(
@@ -152,7 +148,7 @@ class _LaporState extends State<Lapor> {
                                   fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              '+62 811-2628-911',
+                              '0274 - 868504',
                               style: TextStyle(
                                 fontSize: 14.0,
                                 color: Colors.black,
@@ -232,12 +228,17 @@ class _LaporState extends State<Lapor> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    '${place.name}',
-                                    style: TextStyle(
+                                  Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.7, // 80% of device width
+                                    child: Text(
+                                      '${place.name.length > 29 ? place.name.substring(0, 29) + '...' : place.name}', // Truncate text if longer than 24 characters
+                                      style: TextStyle(
                                         color: Color(0xFF9D0000),
                                         fontSize: 16,
-                                        fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ),
                                   Stack(
                                     children: [
