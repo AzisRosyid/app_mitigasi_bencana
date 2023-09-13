@@ -148,7 +148,7 @@ class _LaporState extends State<Lapor> {
                                   fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              '0274 - 868504',
+                              '0274 – 868504',
                               style: TextStyle(
                                 fontSize: 14.0,
                                 color: Colors.black,

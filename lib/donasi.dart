@@ -146,7 +146,7 @@ class _DonasiState extends State<Donasi> {
                                   fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              '+62 811-2628-911',
+                              '0274 – 868504',
                               style: TextStyle(
                                 fontSize: 14.0,
                                 color: Colors.black,
