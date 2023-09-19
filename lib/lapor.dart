@@ -232,7 +232,7 @@ class _LaporState extends State<Lapor> {
                                     width: MediaQuery.of(context).size.width *
                                         0.7, // 80% of device width
                                     child: Text(
-                                      '${place.name.length > 29 ? place.name.substring(0, 29) + '...' : place.name}', // Truncate text if longer than 24 characters
+                                      '${place.name.length > 28 ? place.name.substring(0, 28) + '...' : place.name}', // Truncate text if longer than 24 characters
                                       style: TextStyle(
                                         color: Color(0xFF9D0000),
                                         fontSize: 16,
@@ -277,17 +277,16 @@ class _LaporState extends State<Lapor> {
                             bottomRight: Radius.circular(12.0),
                           ),
                           child: Container(
-                            width: double
-                                .infinity, // Full width for the description
-                            decoration:
-                                BoxDecoration(color: Colors.white, boxShadow: [
-                              BoxShadow(
-                                color: Colors.black, // Shadow color
-                                spreadRadius: 2,
-                                blurRadius: 5,
-                                offset: Offset(0, 3), // Shadow position
-                              ),
-                            ]),
+                            width: double .infinity,
+                            // decoration:
+                            //     BoxDecoration(color: Colors.white, boxShadow: [
+                            //   BoxShadow(
+                            //     color: Colors.black, // Shadow color
+                            //     spreadRadius: 2,
+                            //     blurRadius: 5,
+                            //     offset: Offset(0, 3), // Shadow position
+                            //   ),
+                            // ]),
                             child: Column(
                               children: [
                                 Container(

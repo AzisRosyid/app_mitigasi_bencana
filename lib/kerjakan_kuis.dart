@@ -179,41 +179,110 @@ class _KerjakanKuisState extends State<KerjakanKuis> {
                   height: 12,
                 ),
                 Container(
-                    // Content Container
-                    height: 350,
-                    margin: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                    child: ListView(
+                  // Content Container
+                  height: 350,
+                  margin: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text("${index + 1}.",
-                                  style: TextStyle(
-                                    fontSize: 17.0,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                              SizedBox(
-                                width: 4,
-                              ),
-                              Container(
-                                width: 290,
-                                child: Text(
-                                  "${quiz.questions[index].contents[0].content}",
-                                  style: TextStyle(
-                                    fontSize: 17.0,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.left,
-                                  softWrap:
-                                      true, // Allow text to wrap within its parent container
-                                ),
-                              )
-                            ]),
-                      ],
-                    )),
+                        Text("${index + 1}.",
+                            style: TextStyle(
+                              fontSize: 17.0,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            )),
+                        SizedBox(
+                          width: 4,
+                        ),
+                        Container(
+                            width: 290,
+                            child: ListView.builder(
+                                itemCount:
+                                    quiz.questions[index].contents.length,
+                                itemBuilder: (BuildContext context, int i) {
+                                  final quizContent =
+                                      quiz.questions[index].contents[i];
+                                  if (quizContent.type == 1)
+                                    return Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "${quizContent.content}",
+                                          style: TextStyle(
+                                            fontSize: 17.0,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          textAlign: TextAlign.left,
+                                          softWrap:
+                                              true, // Allow text to wrap within its parent container
+                                        ),
+                                        if (index ==
+                                            quiz.questions[index].contents
+                                                    .length -
+                                                1)
+                                          SizedBox(height: 200),
+                                      ],
+                                    );
+                                  else if (quizContent.type == 2)
+                                    return Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.symmetric(
+                                            vertical: 8,
+                                          ),
+                                          child: Stack(
+                                            children: [
+                                              ClipRRect(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(12)),
+                                                child: Container(
+                                                  color: Colors
+                                                      .white, // Add a background color for the image frame
+                                                  child: Image.asset(
+                                                    'assets/images/quizzes/${quizContent.content}',
+                                                    fit: BoxFit.cover,
+                                                    width: double.infinity,
+                                                    height:
+                                                        200.0, // Adjust the height as needed
+                                                  ),
+                                                ),
+                                              ),
+                                              Positioned.fill(
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                      color: Color(
+                                                          0xFF930000), // Border color
+                                                      width:
+                                                          2.2, // Border width
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                12)),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        if (i ==
+                                            quiz.questions[index].contents
+                                                    .length -
+                                                1)
+                                          SizedBox(height: 200),
+                                      ],
+                                    );
+                                }))
+                      ]),
+                ),
               ],
             ),
             Container(
@@ -273,7 +342,8 @@ class _KerjakanKuisState extends State<KerjakanKuis> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(
-                                          margin: EdgeInsets.symmetric(vertical: 8),
+                                          margin:
+                                              EdgeInsets.symmetric(vertical: 8),
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *

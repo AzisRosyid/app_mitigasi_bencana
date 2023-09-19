@@ -14,28 +14,23 @@ class Book {
 
 final List<Book> getBooks = [
   Book(
-      title: 'A House Divided',
-      author: 'Nicole Ciacchella',
+      title: 'Edukasi Umum Bencana Gunung Meletus',
+      author: 'EDU MIT',
       imagePath: 'assets/images/books/book1.png',
       pdfPath: 'assets/pdf/book1.pdf'),
   Book(
-      title: 'A Princess of Mars',
-      author: 'Edgar Rice Burroughs',
+      title: 'Sikap Dan Cara Pasca Menanggulangi Bencana Gunung Meletus Terjadi',
+      author: 'EDU MIT',
       imagePath: 'assets/images/books/book2.png',
       pdfPath: 'assets/pdf/book2.pdf'),
   Book(
-      title: 'Around the World in Eighty Days',
-      author: 'Jules Verne',
+      title: 'Strategi Bijak Dalam Menghadapi Ancaman Letusan Gunung Dan Persiapan Yang Tepat',
+      author: 'EDU MIT',
       imagePath: 'assets/images/books/book3.png',
       pdfPath: 'assets/pdf/book3.pdf'),
   Book(
-      title: 'Dead & Buried (A Partners in Crime Supernatural Mystery)',
-      author: 'T.K. Eldridge',
+      title: 'Cara Selamat Dari Gunung Merapi',
+      author: 'EDU MIT',
       imagePath: 'assets/images/books/book4.png',
       pdfPath: 'assets/pdf/book4.pdf'),
-  Book(
-      title: '20000 Lieues sous les mers',
-      author: 'Jules Verne',
-      imagePath: 'assets/images/books/book5.png',
-      pdfPath: 'assets/pdf/book5.pdf'),
 ];

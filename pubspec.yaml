@@ -24,6 +24,8 @@ dependencies:
   geolocator: ^10.0.0
   geocoding: ^2.0.4
   permission_handler: ^10.4.3
+  firebase_core: ^2.15.1
+  firebase_auth: ^4.9.0
   flutter_gif: any
 
 flutter_launcher_icons:
@@ -91,6 +93,11 @@ flutter:
     - assets/zone/krb3.kmz
     - assets/zone/terdampak_langsung.kmz
     - assets/zone/tidak_terdampak_langsung.kmz
+    - assets/images/quizzes/quiz1.jpg
+    - assets/images/quizzes/quiz2.jpg
+    - assets/images/quizzes/quiz3.jpg
+    - assets/images/quizzes/quiz4.jpg
+    - assets/images/quizzes/quiz5.jpg
     - assets/images/books/book1.png
     - assets/pdf/book1.pdf
     - assets/images/books/book2.png
@@ -99,6 +106,3 @@ flutter:
     - assets/pdf/book3.pdf
     - assets/images/books/book4.png
     - assets/pdf/book4.pdf
-    - assets/images/books/book5.png
-    - assets/pdf/book5.pdf
-    

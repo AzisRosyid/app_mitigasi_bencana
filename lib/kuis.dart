@@ -58,9 +58,9 @@ class _KuisState extends State<Kuis> {
         ),
       ),
       body: ListView.builder(
-        itemCount: getQuizs.length,
+        itemCount: getQuizzes.length,
         itemBuilder: (BuildContext context, int index) {
-          final quiz = getQuizs[index];
+          final quiz = getQuizzes[index];
           return Column(
             children: [
               Container(

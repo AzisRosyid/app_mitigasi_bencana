@@ -525,8 +525,6 @@ class _NavigasiState extends State<Navigasi> {
   }
 
   Future<void> openGoogleMaps() async {
-    // final Uri googleMapsUrl = Uri.parse(
-    //     'https://www.google.com/maps/dir/-7.7755482,110.3488453/-7.776484,110.3513246/@-7.7748853,110.3523675,16z?entry=ttu');
     final Uri googleMapsUrl = Uri.parse(
         'https://www.google.com/maps/dir/${currentPosition!.latitude},${currentPosition!.longitude}/${selectedPlace!.latitude},${selectedPlace!.longitude}/');
 

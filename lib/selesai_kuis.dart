@@ -182,16 +182,16 @@ class SelesaiKuis extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      int index = getQuizs
+                      int index = getQuizzes
                           .asMap()
                           .entries
                           .firstWhere((element) => element.value == quiz)
                           .key;
-                      if (index + 1 < getQuizs.length) {
+                      if (index + 1 < getQuizzes.length) {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => KerjakanKuis(quiz: getQuizs[index + 1])));
+                              builder: (context) => KerjakanKuis(quiz: getQuizzes[index + 1])));
                       }
                     },
                     style: ButtonStyle(

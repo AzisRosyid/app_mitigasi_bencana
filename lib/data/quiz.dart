@@ -22,7 +22,7 @@ class QuestionContent {
   QuestionContent({required this.content, required this.type});
 }
 
-List<Quiz> getQuizs = [
+List<Quiz> getQuizzes = [
   // Quiz(title: 'Disaster', questions: [
   //   Question(
   //     contents: [
@@ -202,8 +202,7 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content:
-              'Apa nama sistem peringatan dini yang digunakan di Sleman?',
+          content: 'Apa nama sistem peringatan dini yang digunakan di Sleman?',
           type: 1,
         ),
       ],
@@ -233,8 +232,7 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content:
-              'Bagaimana cara mengidentifikasi zona bahaya Gunung Merapi?',
+          content: 'Bagaimana cara mengidentifikasi zona bahaya Gunung Merapi?',
           type: 1,
         ),
       ],
@@ -251,6 +249,10 @@ List<Quiz> getQuizs = [
         QuestionContent(
           content: 'Apa fungsi pos pengamatan Gunung Merapi?',
           type: 1,
+        ),
+        QuestionContent(
+          content: 'quiz1.jpg',
+          type: 2,
         ),
       ],
       answers: [
@@ -279,7 +281,8 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content: 'Apa yang harus dilakukan saat terjadi erupsi Gunung Merapi?',
+          content:
+              'Apa yang harus dilakukan saat terjadi erupsi Gunung Merapi?',
           type: 1,
         ),
       ],
@@ -341,13 +344,18 @@ List<Quiz> getQuizs = [
   ]),
 
   // Quiz 3
-  
+
   Quiz(title: 'Evakuasi Aman di Gunung Merapi', questions: [
     Question(
       contents: [
         QuestionContent(
-          content: 'Bagaimana prosedur evakuasi yang benar saat terjadi erupsi Gunung Merapi?',
+          content:
+              'Bagaimana prosedur evakuasi yang benar saat terjadi erupsi Gunung Merapi?',
           type: 1,
+        ),
+        QuestionContent(
+          content: 'quiz2.jpg',
+          type: 2,
         ),
       ],
       answers: [
@@ -376,7 +384,8 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content: 'Apa yang harus dilakukan jika terjebak di dalam rumah saat erupsi?',
+          content:
+              'Apa yang harus dilakukan jika terjebak di dalam rumah saat erupsi?',
           type: 1,
         ),
       ],
@@ -421,7 +430,8 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content: 'Apa yang harus dilakukan jika ada anggota keluarga yang terpisah selama evakuasi?',
+          content:
+              'Apa yang harus dilakukan jika ada anggota keluarga yang terpisah selama evakuasi?',
           type: 1,
         ),
       ],
@@ -436,7 +446,8 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content: 'Bagaimana cara mengidentifikasi tempat aman di dalam rumah?',
+          content:
+              'Bagaimana cara mengidentifikasi tempat aman di dalam rumah?',
           type: 1,
         ),
       ],
@@ -481,7 +492,8 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content: 'Bagaimana cara membantu tetangga yang membutuhkan selama evakuasi?',
+          content:
+              'Bagaimana cara membantu tetangga yang membutuhkan selama evakuasi?',
           type: 1,
         ),
       ],
@@ -496,7 +508,7 @@ List<Quiz> getQuizs = [
   ]),
 
   // Quiz 4
-    Quiz(title: 'Pemahaman Peta Evakuasi Gunung Merapi', questions: [
+  Quiz(title: 'Pemahaman Peta Evakuasi Gunung Merapi', questions: [
     Question(
       contents: [
         QuestionContent(
@@ -530,7 +542,8 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content: 'Bagaimana mengidentifikasi lokasi tempat evakuasi terdekat?',
+          content:
+              'Bagaimana mengidentifikasi lokasi tempat evakuasi terdekat?',
           type: 1,
         ),
       ],
@@ -575,7 +588,8 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content: 'Apa yang perlu diperhatikan saat menggunakan peta evakuasi dalam situasi darurat?',
+          content:
+              'Apa yang perlu diperhatikan saat menggunakan peta evakuasi dalam situasi darurat?',
           type: 1,
         ),
       ],
@@ -605,7 +619,8 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content: 'Apa yang harus dilakukan jika ada perubahan situasi selama evakuasi?',
+          content:
+              'Apa yang harus dilakukan jika ada perubahan situasi selama evakuasi?',
           type: 1,
         ),
       ],
@@ -635,7 +650,8 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content: 'Bagaimana cara berkomunikasi dengan keluarga selama evakuasi menggunakan peta?',
+          content:
+              'Bagaimana cara berkomunikasi dengan keluarga selama evakuasi menggunakan peta?',
           type: 1,
         ),
       ],
@@ -669,7 +685,8 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content: 'Bagaimana cara merencanakan pertemuan keluarga jika terpisah selama evakuasi?',
+          content:
+              'Bagaimana cara merencanakan pertemuan keluarga jika terpisah selama evakuasi?',
           type: 1,
         ),
       ],
@@ -684,7 +701,8 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content: 'Apa yang perlu disiapkan untuk anak-anak dan lansia selama evakuasi?',
+          content:
+              'Apa yang perlu disiapkan untuk anak-anak dan lansia selama evakuasi?',
           type: 1,
         ),
       ],
@@ -699,7 +717,8 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content: 'Apa yang harus diperhatikan saat memilih tempat aman di dalam rumah?',
+          content:
+              'Apa yang harus diperhatikan saat memilih tempat aman di dalam rumah?',
           type: 1,
         ),
       ],
@@ -714,7 +733,8 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content: 'Bagaimana cara membuat rencana komunikasi keluarga dalam situasi darurat?',
+          content:
+              'Bagaimana cara membuat rencana komunikasi keluarga dalam situasi darurat?',
           type: 1,
         ),
       ],
@@ -729,7 +749,8 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content: 'Apa peran hewan peliharaan dalam rencana evakuasi keluarga?',
+          content:
+              'Apa peran hewan peliharaan dalam rencana evakuasi keluarga?',
           type: 1,
         ),
       ],
@@ -744,7 +765,8 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content: 'Bagaimana cara mengamankan dokumen penting seperti KTP dan kartu keluarga?',
+          content:
+              'Bagaimana cara mengamankan dokumen penting seperti KTP dan kartu keluarga?',
           type: 1,
         ),
       ],
@@ -759,7 +781,8 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content: 'Apa yang harus dilakukan jika anggota keluarga memiliki kebutuhan khusus?',
+          content:
+              'Apa yang harus dilakukan jika anggota keluarga memiliki kebutuhan khusus?',
           type: 1,
         ),
       ],
@@ -789,7 +812,8 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content: 'Apa yang perlu dilakukan setelah kembali ke rumah setelah erupsi?',
+          content:
+              'Apa yang perlu dilakukan setelah kembali ke rumah setelah erupsi?',
           type: 1,
         ),
       ],
@@ -804,165 +828,182 @@ List<Quiz> getQuizs = [
   ]),
 
   // Quiz 6
-    Quiz(title: 'Kesiapsiagaan Sekolah terhadap Erupsi Gunung Merapi', questions: [
-    Question(
-      contents: [
-        QuestionContent(
-          content: 'Apa langkah-langkah yang harus diambil oleh sekolah saat mendengar peringatan erupsi?',
-          type: 1,
+  Quiz(
+      title: 'Kesiapsiagaan Sekolah terhadap Erupsi Gunung Merapi',
+      questions: [
+        Question(
+          contents: [
+            QuestionContent(
+              content:
+                  'Apa langkah-langkah yang harus diambil oleh sekolah saat mendengar peringatan erupsi?',
+              type: 1,
+            ),
+          ],
+          answers: [
+            'Melanjutkan kegiatan pelajaran seperti biasa',
+            'Mengabaikan peringatan tersebut',
+            'Menghentikan semua kegiatan dan mengikuti prosedur evakuasi sekolah',
+            'Mengundurkan diri dari sekolah',
+          ],
+          correct: 2,
         ),
-      ],
-      answers: [
-        'Melanjutkan kegiatan pelajaran seperti biasa',
-        'Mengabaikan peringatan tersebut',
-        'Menghentikan semua kegiatan dan mengikuti prosedur evakuasi sekolah',
-        'Mengundurkan diri dari sekolah',
-      ],
-      correct: 2,
-    ),
-    Question(
-      contents: [
-        QuestionContent(
-          content: 'Bagaimana cara mengatur evakuasi siswa dan staf sekolah dengan aman?',
-          type: 1,
+        Question(
+          contents: [
+            QuestionContent(
+              content:
+                  'Bagaimana cara mengatur evakuasi siswa dan staf sekolah dengan aman?',
+              type: 1,
+            ),
+            QuestionContent(
+              content: 'quiz3.jpg',
+              type: 2,
+            ),
+          ],
+          answers: [
+            'Tidak perlu mengatur evakuasi',
+            'Menggunakan tangga yang sempit',
+            'Berteriak dan panik',
+            'Mengikuti rute evakuasi yang telah ditentukan dan memastikan semua orang mengikuti',
+          ],
+          correct: 3,
         ),
-      ],
-      answers: [
-        'Tidak perlu mengatur evakuasi',
-        'Menggunakan tangga yang sempit',
-        'Berteriak dan panik',
-        'Mengikuti rute evakuasi yang telah ditentukan dan memastikan semua orang mengikuti',
-      ],
-      correct: 3,
-    ),
-    Question(
-      contents: [
-        QuestionContent(
-          content: 'Apa yang harus dilakukan agar fasilitas sekolah tetap aman selama erupsi?',
-          type: 1,
+        Question(
+          contents: [
+            QuestionContent(
+              content:
+                  'Apa yang harus dilakukan agar fasilitas sekolah tetap aman selama erupsi?',
+              type: 1,
+            ),
+          ],
+          answers: [
+            'Mengikuti panduan pemeliharaan dan melaksanakan tindakan pencegahan yang diberikan oleh pihak berwenang',
+            'Mengerahkan siswa untuk membersihkan area sekolah',
+            'Menutup pintu dan jendela dengan rapat',
+            'Tidak melakukan apa-apa',
+          ],
+          correct: 0,
         ),
-      ],
-      answers: [
-        'Mengikuti panduan pemeliharaan dan melaksanakan tindakan pencegahan yang diberikan oleh pihak berwenang',
-        'Mengerahkan siswa untuk membersihkan area sekolah',
-        'Menutup pintu dan jendela dengan rapat',
-        'Tidak melakukan apa-apa',
-      ],
-      correct: 0,
-    ),
-    Question(
-      contents: [
-        QuestionContent(
-          content: 'Bagaimana cara memberikan edukasi tentang mitigasi bencana kepada siswa?',
-          type: 1,
+        Question(
+          contents: [
+            QuestionContent(
+              content:
+                  'Bagaimana cara memberikan edukasi tentang mitigasi bencana kepada siswa?',
+              type: 1,
+            ),
+          ],
+          answers: [
+            'Mengadakan pertunjukan sulap',
+            'Menggunakan materi pelajaran reguler untuk itu',
+            'Mengabaikan pendidikan bencana',
+            'Menyuruh siswa membaca buku sendiri',
+          ],
+          correct: 1,
         ),
-      ],
-      answers: [
-        'Mengadakan pertunjukan sulap',
-        'Menggunakan materi pelajaran reguler untuk itu',
-        'Mengabaikan pendidikan bencana',
-        'Menyuruh siswa membaca buku sendiri',
-      ],
-      correct: 1,
-    ),
-    Question(
-      contents: [
-        QuestionContent(
-          content: 'Apa peran guru dan staf sekolah dalam mengamankan siswa selama erupsi?',
-          type: 1,
+        Question(
+          contents: [
+            QuestionContent(
+              content:
+                  'Apa peran guru dan staf sekolah dalam mengamankan siswa selama erupsi?',
+              type: 1,
+            ),
+          ],
+          answers: [
+            'Tidak memiliki peran',
+            'Melarikan diri dan meninggalkan siswa',
+            'Bertanggung jawab untuk memastikan siswa mengikuti prosedur evakuasi dengan aman',
+            'Menggunakan siswa sebagai perlindungan tubuh',
+          ],
+          correct: 2,
         ),
-      ],
-      answers: [
-        'Tidak memiliki peran',
-        'Melarikan diri dan meninggalkan siswa',
-        'Bertanggung jawab untuk memastikan siswa mengikuti prosedur evakuasi dengan aman',
-        'Menggunakan siswa sebagai perlindungan tubuh',
-      ],
-      correct: 2,
-    ),
-    Question(
-      contents: [
-        QuestionContent(
-          content: 'Bagaimana mengidentifikasi titik kumpul dan rute evakuasi di sekolah?',
-          type: 1,
+        Question(
+          contents: [
+            QuestionContent(
+              content:
+                  'Bagaimana mengidentifikasi titik kumpul dan rute evakuasi di sekolah?',
+              type: 1,
+            ),
+          ],
+          answers: [
+            'Tidak perlu mengetahuinya',
+            'Menggunakan peta sekolah dan mengikuti tanda-tanda',
+            'Bergantung pada penunjuk jalan lisan',
+            'Mengandalkan insting',
+          ],
+          correct: 1,
         ),
-      ],
-      answers: [
-        'Tidak perlu mengetahuinya',
-        'Menggunakan peta sekolah dan mengikuti tanda-tanda',
-        'Bergantung pada penunjuk jalan lisan',
-        'Mengandalkan insting',
-      ],
-      correct: 1,
-    ),
-    Question(
-      contents: [
-        QuestionContent(
-          content: 'Apa yang harus dilakukan jika siswa terpisah dari kelompok selama evakuasi?',
-          type: 1,
+        Question(
+          contents: [
+            QuestionContent(
+              content:
+                  'Apa yang harus dilakukan jika siswa terpisah dari kelompok selama evakuasi?',
+              type: 1,
+            ),
+          ],
+          answers: [
+            'Tidak perlu mencari siswa yang terpisah',
+            'Melanjutkan evakuasi tanpa memperhatikan siswa yang terpisah',
+            'Menghubungi pihak berwenang dan memberikan informasi tentang siswa yang terpisah',
+            'Mengabaikan siswa yang terpisah',
+          ],
+          correct: 2,
         ),
-      ],
-      answers: [
-        'Tidak perlu mencari siswa yang terpisah',
-        'Melanjutkan evakuasi tanpa memperhatikan siswa yang terpisah',
-        'Menghubungi pihak berwenang dan memberikan informasi tentang siswa yang terpisah',
-        'Mengabaikan siswa yang terpisah',
-      ],
-      correct: 2,
-    ),
-    Question(
-      contents: [
-        QuestionContent(
-          content: 'Apa peran orang tua dalam kesiapsiagaan sekolah terhadap bencana?',
-          type: 1,
+        Question(
+          contents: [
+            QuestionContent(
+              content:
+                  'Apa peran orang tua dalam kesiapsiagaan sekolah terhadap bencana?',
+              type: 1,
+            ),
+          ],
+          answers: [
+            'Tidak memiliki peran',
+            'Mengawasi anak-anak mereka di sekolah',
+            'Memberi tahu anak-anak untuk tidak mendengarkan petunjuk sekolah',
+            'Mengabaikan komunikasi dengan sekolah',
+          ],
+          correct: 1,
         ),
-      ],
-      answers: [
-        'Tidak memiliki peran',
-        'Mengawasi anak-anak mereka di sekolah',
-        'Memberi tahu anak-anak untuk tidak mendengarkan petunjuk sekolah',
-        'Mengabaikan komunikasi dengan sekolah',
-      ],
-      correct: 1,
-    ),
-    Question(
-      contents: [
-        QuestionContent(
-          content: 'Bagaimana mengatur komunikasi antara sekolah dan orang tua selama erupsi?',
-          type: 1,
+        Question(
+          contents: [
+            QuestionContent(
+              content:
+                  'Bagaimana mengatur komunikasi antara sekolah dan orang tua selama erupsi?',
+              type: 1,
+            ),
+          ],
+          answers: [
+            'Tidak perlu berkomunikasi dengan orang tua',
+            'Menggunakan surat dan telepon',
+            'Menghindari kontak dengan orang tua',
+            'Menggunakan kode Morse',
+          ],
+          correct: 1,
         ),
-      ],
-      answers: [
-        'Tidak perlu berkomunikasi dengan orang tua',
-        'Menggunakan surat dan telepon',
-        'Menghindari kontak dengan orang tua',
-        'Menggunakan kode Morse',
-      ],
-      correct: 1,
-    ),
-    Question(
-      contents: [
-        QuestionContent(
-          content: 'Apa langkah-langkah untuk pemulihan sekolah setelah erupsi?',
-          type: 1,
+        Question(
+          contents: [
+            QuestionContent(
+              content:
+                  'Apa langkah-langkah untuk pemulihan sekolah setelah erupsi?',
+              type: 1,
+            ),
+          ],
+          answers: [
+            'Tidak melakukan apa-apa',
+            'Membuka kembali sekolah tanpa memeriksa kerusakan',
+            'Mengevaluasi kerusakan, memulihkan fasilitas, dan melanjutkan aktivitas sekolah',
+            'Menunggu berbulan-bulan sebelum melanjutkan sekolah',
+          ],
+          correct: 2,
         ),
-      ],
-      answers: [
-        'Tidak melakukan apa-apa',
-        'Membuka kembali sekolah tanpa memeriksa kerusakan',
-        'Mengevaluasi kerusakan, memulihkan fasilitas, dan melanjutkan aktivitas sekolah',
-        'Menunggu berbulan-bulan sebelum melanjutkan sekolah',
-      ],
-      correct: 2,
-    ),
-  ]),
+      ]),
 
   // Quiz 7
-    Quiz(title: 'Kesiapan Komunitas untuk Erupsi Gunung Merapi', questions: [
+  Quiz(title: 'Kesiapan Komunitas untuk Erupsi Gunung Merapi', questions: [
     Question(
       contents: [
         QuestionContent(
-          content: 'Apa yang harus dilakukan oleh anggota komunitas saat mendengar peringatan dini erupsi?',
+          content:
+              'Apa yang harus dilakukan oleh anggota komunitas saat mendengar peringatan dini erupsi?',
           type: 1,
         ),
       ],
@@ -977,7 +1018,8 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content: 'Apa yang perlu diperhatikan saat membantu anggota komunitas yang membutuhkan selama erupsi?',
+          content:
+              'Apa yang perlu diperhatikan saat membantu anggota komunitas yang membutuhkan selama erupsi?',
           type: 1,
         ),
       ],
@@ -992,7 +1034,8 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content: 'Bagaimana cara berkomunikasi dengan tetangga selama erupsi?',
+          content:
+              'Bagaimana cara berkomunikasi dengan tetangga selama erupsi?',
           type: 1,
         ),
       ],
@@ -1007,7 +1050,8 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content: 'Apa yang perlu diperhatikan saat merawat hewan peliharaan milik tetangga selama erupsi?',
+          content:
+              'Apa yang perlu diperhatikan saat merawat hewan peliharaan milik tetangga selama erupsi?',
           type: 1,
         ),
       ],
@@ -1022,7 +1066,8 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content: 'Bagaimana mengorganisir pertemuan komunitas untuk membahas rencana darurat?',
+          content:
+              'Bagaimana mengorganisir pertemuan komunitas untuk membahas rencana darurat?',
           type: 1,
         ),
       ],
@@ -1037,7 +1082,8 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content: 'Apa yang harus dilakukan jika ada anggota komunitas yang memerlukan evakuasi darurat?',
+          content:
+              'Apa yang harus dilakukan jika ada anggota komunitas yang memerlukan evakuasi darurat?',
           type: 1,
         ),
       ],
@@ -1052,7 +1098,8 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content: 'Bagaimana cara mengakses layanan kesehatan darurat saat fasilitas kesehatan tradisional tidak dapat dijangkau?',
+          content:
+              'Bagaimana cara mengakses layanan kesehatan darurat saat fasilitas kesehatan tradisional tidak dapat dijangkau?',
           type: 1,
         ),
       ],
@@ -1067,8 +1114,13 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content: 'Apa yang perlu dilakukan jika anggota komunitas mengalami masalah kesehatan selama erupsi?',
+          content:
+              'Apa yang perlu dilakukan jika anggota komunitas mengalami masalah kesehatan selama erupsi?',
           type: 1,
+        ),
+        QuestionContent(
+          content: 'quiz4.jpg',
+          type: 2,
         ),
       ],
       answers: [
@@ -1082,7 +1134,8 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content: 'Bagaimana cara berpartisipasi dalam jaringan komunitas untuk berbagi informasi dan dukungan?',
+          content:
+              'Bagaimana cara berpartisipasi dalam jaringan komunitas untuk berbagi informasi dan dukungan?',
           type: 1,
         ),
       ],
@@ -1097,7 +1150,8 @@ List<Quiz> getQuizs = [
     Question(
       contents: [
         QuestionContent(
-          content: 'Apa peran posko komunitas dalam mendukung mitigasi bencana?',
+          content:
+              'Apa peran posko komunitas dalam mendukung mitigasi bencana?',
           type: 1,
         ),
       ],
@@ -1112,13 +1166,14 @@ List<Quiz> getQuizs = [
   ]),
 
   // Quiz 8
-    Quiz(
+  Quiz(
     title: 'Keselamatan dan Pertolongan Pertama saat Erupsi Gunung Merapi',
     questions: [
       Question(
         contents: [
           QuestionContent(
-            content: 'Apa yang perlu dilakukan saat terkena hujan abu vulkanik selama erupsi?',
+            content:
+                'Apa yang perlu dilakukan saat terkena hujan abu vulkanik selama erupsi?',
             type: 1,
           ),
         ],
@@ -1133,7 +1188,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Bagaimana cara mengenali gejala awal keracunan gas vulkanik?',
+            content:
+                'Bagaimana cara mengenali gejala awal keracunan gas vulkanik?',
             type: 1,
           ),
         ],
@@ -1148,7 +1204,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Apa yang perlu dilakukan jika terkena luka akibat puing atau batuan selama erupsi?',
+            content:
+                'Apa yang perlu dilakukan jika terkena luka akibat puing atau batuan selama erupsi?',
             type: 1,
           ),
         ],
@@ -1163,7 +1220,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Bagaimana cara mengamankan diri saat terjadi aliran lahar dingin?',
+            content:
+                'Bagaimana cara mengamankan diri saat terjadi aliran lahar dingin?',
             type: 1,
           ),
         ],
@@ -1178,7 +1236,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Apa yang perlu diperhatikan saat memberikan pertolongan pertama kepada korban selama erupsi?',
+            content:
+                'Apa yang perlu diperhatikan saat memberikan pertolongan pertama kepada korban selama erupsi?',
             type: 1,
           ),
         ],
@@ -1193,7 +1252,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Bagaimana cara mengidentifikasi tempat yang aman untuk berlindung saat erupsi?',
+            content:
+                'Bagaimana cara mengidentifikasi tempat yang aman untuk berlindung saat erupsi?',
             type: 1,
           ),
         ],
@@ -1208,7 +1268,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Apa yang harus dilakukan jika seseorang mengalami kesulitan bernapas akibat paparan asap vulkanik?',
+            content:
+                'Apa yang harus dilakukan jika seseorang mengalami kesulitan bernapas akibat paparan asap vulkanik?',
             type: 1,
           ),
         ],
@@ -1223,7 +1284,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Bagaimana cara memberikan pertolongan pertama kepada seseorang yang terluka oleh pohon tumbang selama erupsi?',
+            content:
+                'Bagaimana cara memberikan pertolongan pertama kepada seseorang yang terluka oleh pohon tumbang selama erupsi?',
             type: 1,
           ),
         ],
@@ -1238,7 +1300,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Apa yang perlu diperhatikan saat mengenali gejala awal dehidrasi selama erupsi?',
+            content:
+                'Apa yang perlu diperhatikan saat mengenali gejala awal dehidrasi selama erupsi?',
             type: 1,
           ),
         ],
@@ -1253,7 +1316,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Bagaimana cara mengidentifikasi sumber air yang aman untuk digunakan selama erupsi?',
+            content:
+                'Bagaimana cara mengidentifikasi sumber air yang aman untuk digunakan selama erupsi?',
             type: 1,
           ),
         ],
@@ -1269,13 +1333,15 @@ List<Quiz> getQuizs = [
   ),
 
   // Quiz 9
-    Quiz(
-    title: 'Kesiapsiagaan Pihak Berwenang dalam Menghadapi Erupsi Gunung Merapi',
+  Quiz(
+    title:
+        'Kesiapsiagaan Pihak Berwenang dalam Menghadapi Erupsi Gunung Merapi',
     questions: [
       Question(
         contents: [
           QuestionContent(
-            content: 'Apa yang harus dilakukan oleh pihak berwenang ketika menerima peringatan dini erupsi?',
+            content:
+                'Apa yang harus dilakukan oleh pihak berwenang ketika menerima peringatan dini erupsi?',
             type: 1,
           ),
         ],
@@ -1290,7 +1356,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Bagaimana cara mendistribusikan informasi darurat kepada masyarakat secara efektif?',
+            content:
+                'Bagaimana cara mendistribusikan informasi darurat kepada masyarakat secara efektif?',
             type: 1,
           ),
         ],
@@ -1305,7 +1372,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Apa peran petugas pemadam kebakaran dalam mitigasi erupsi Gunung Merapi?',
+            content:
+                'Apa peran petugas pemadam kebakaran dalam mitigasi erupsi Gunung Merapi?',
             type: 1,
           ),
         ],
@@ -1320,7 +1388,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Bagaimana cara mengkoordinasikan evakuasi dan bantuan darurat antara berbagai pihak berwenang?',
+            content:
+                'Bagaimana cara mengkoordinasikan evakuasi dan bantuan darurat antara berbagai pihak berwenang?',
             type: 1,
           ),
         ],
@@ -1335,7 +1404,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Apa yang perlu dilakukan oleh pihak berwenang untuk memastikan perlindungan terhadap fasilitas penting, seperti jalan raya dan infrastruktur kritis?',
+            content:
+                'Apa yang perlu dilakukan oleh pihak berwenang untuk memastikan perlindungan terhadap fasilitas penting, seperti jalan raya dan infrastruktur kritis?',
             type: 1,
           ),
         ],
@@ -1350,7 +1420,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Bagaimana cara mempersiapkan fasilitas evakuasi darurat untuk masyarakat yang terdampak?',
+            content:
+                'Bagaimana cara mempersiapkan fasilitas evakuasi darurat untuk masyarakat yang terdampak?',
             type: 1,
           ),
         ],
@@ -1365,7 +1436,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Apa yang perlu dilakukan oleh pihak berwenang untuk memberikan dukungan psikososial kepada masyarakat yang terdampak erupsi?',
+            content:
+                'Apa yang perlu dilakukan oleh pihak berwenang untuk memberikan dukungan psikososial kepada masyarakat yang terdampak erupsi?',
             type: 1,
           ),
         ],
@@ -1380,7 +1452,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Bagaimana mengelola logistik dan persediaan dalam situasi darurat seperti erupsi Gunung Merapi?',
+            content:
+                'Bagaimana mengelola logistik dan persediaan dalam situasi darurat seperti erupsi Gunung Merapi?',
             type: 1,
           ),
         ],
@@ -1395,7 +1468,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Apa yang perlu diperhatikan dalam merencanakan relokasi masyarakat yang terdampak secara jangka panjang?',
+            content:
+                'Apa yang perlu diperhatikan dalam merencanakan relokasi masyarakat yang terdampak secara jangka panjang?',
             type: 1,
           ),
         ],
@@ -1410,7 +1484,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Apa yang perlu dilakukan oleh pihak berwenang setelah erupsi untuk pemulihan dan pemantauan situasi?',
+            content:
+                'Apa yang perlu dilakukan oleh pihak berwenang setelah erupsi untuk pemulihan dan pemantauan situasi?',
             type: 1,
           ),
         ],
@@ -1426,13 +1501,14 @@ List<Quiz> getQuizs = [
   ),
 
   // Quiz 10
-    Quiz(
+  Quiz(
     title: 'Kesiapan dalam Menghadapi Pasca Erupsi Gunung Merapi',
     questions: [
       Question(
         contents: [
           QuestionContent(
-            content: 'Apa yang harus dilakukan oleh masyarakat saat kembali ke rumah setelah erupsi?',
+            content:
+                'Apa yang harus dilakukan oleh masyarakat saat kembali ke rumah setelah erupsi?',
             type: 1,
           ),
         ],
@@ -1447,7 +1523,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Bagaimana cara mengenali gejala awal bahaya pasca erupsi, seperti aliran lahar dingin?',
+            content:
+                'Bagaimana cara mengenali gejala awal bahaya pasca erupsi, seperti aliran lahar dingin?',
             type: 1,
           ),
         ],
@@ -1462,7 +1539,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Apa yang perlu diperhatikan saat membersihkan rumah dari abu vulkanik pasca erupsi?',
+            content:
+                'Apa yang perlu diperhatikan saat membersihkan rumah dari abu vulkanik pasca erupsi?',
             type: 1,
           ),
         ],
@@ -1477,7 +1555,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Bagaimana mengelola sisa material vulkanik, seperti puing atau abu, yang terakumulasi selama erupsi?',
+            content:
+                'Bagaimana mengelola sisa material vulkanik, seperti puing atau abu, yang terakumulasi selama erupsi?',
             type: 1,
           ),
         ],
@@ -1492,7 +1571,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Apa yang harus dilakukan jika terjadi banjir lahar pasca erupsi?',
+            content:
+                'Apa yang harus dilakukan jika terjadi banjir lahar pasca erupsi?',
             type: 1,
           ),
         ],
@@ -1507,7 +1587,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Bagaimana cara melindungi lahan pertanian dari bahaya pasca erupsi?',
+            content:
+                'Bagaimana cara melindungi lahan pertanian dari bahaya pasca erupsi?',
             type: 1,
           ),
         ],
@@ -1522,7 +1603,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Apa yang perlu dilakukan untuk memulihkan mata pencaharian masyarakat pasca erupsi?',
+            content:
+                'Apa yang perlu dilakukan untuk memulihkan mata pencaharian masyarakat pasca erupsi?',
             type: 1,
           ),
         ],
@@ -1537,7 +1619,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Bagaimana mengidentifikasi sumber air yang aman untuk digunakan pasca erupsi?',
+            content:
+                'Bagaimana mengidentifikasi sumber air yang aman untuk digunakan pasca erupsi?',
             type: 1,
           ),
         ],
@@ -1552,7 +1635,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Apa yang harus diperhatikan dalam merencanakan pembangunan kembali infrastruktur pasca erupsi?',
+            content:
+                'Apa yang harus diperhatikan dalam merencanakan pembangunan kembali infrastruktur pasca erupsi?',
             type: 1,
           ),
         ],
@@ -1567,7 +1651,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Apa yang perlu dilakukan oleh masyarakat dan pihak berwenang untuk memantau kondisi Gunung Merapi setelah erupsi?',
+            content:
+                'Apa yang perlu dilakukan oleh masyarakat dan pihak berwenang untuk memantau kondisi Gunung Merapi setelah erupsi?',
             type: 1,
           ),
         ],
@@ -1583,7 +1668,7 @@ List<Quiz> getQuizs = [
   ),
 
   // Quiz 11
-    Quiz(
+  Quiz(
     title: 'Pengetahuan Umum tentang Gunung Merapi',
     questions: [
       Question(
@@ -1591,6 +1676,10 @@ List<Quiz> getQuizs = [
           QuestionContent(
             content: 'Di mana letak Gunung Merapi?',
             type: 1,
+          ),
+          QuestionContent(
+            content: 'quiz5.jpg',
+            type: 2,
           ),
         ],
         answers: [
@@ -1634,7 +1723,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Apa dampak erupsi Gunung Merapi terhadap lingkungan sekitarnya?',
+            content:
+                'Apa dampak erupsi Gunung Merapi terhadap lingkungan sekitarnya?',
             type: 1,
           ),
         ],
@@ -1649,7 +1739,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Apa yang dimaksud dengan "dom" dalam konteks erupsi Gunung Merapi?',
+            content:
+                'Apa yang dimaksud dengan "dom" dalam konteks erupsi Gunung Merapi?',
             type: 1,
           ),
         ],
@@ -1664,7 +1755,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Berapa ketinggian puncak Gunung Merapi di atas permukaan laut?',
+            content:
+                'Berapa ketinggian puncak Gunung Merapi di atas permukaan laut?',
             type: 1,
           ),
         ],
@@ -1679,7 +1771,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Apa peran PVMBG (Pusat Vulkanologi dan Mitigasi Bencana Geologi) dalam pemantauan Gunung Merapi?',
+            content:
+                'Apa peran PVMBG (Pusat Vulkanologi dan Mitigasi Bencana Geologi) dalam pemantauan Gunung Merapi?',
             type: 1,
           ),
         ],
@@ -1694,7 +1787,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Apa yang harus dilakukan masyarakat ketika terjadi peringatan erupsi Gunung Merapi?',
+            content:
+                'Apa yang harus dilakukan masyarakat ketika terjadi peringatan erupsi Gunung Merapi?',
             type: 1,
           ),
         ],
@@ -1709,7 +1803,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Apa yang harus ada dalam persiapan darurat saat tinggal di daerah yang dekat dengan Gunung Merapi?',
+            content:
+                'Apa yang harus ada dalam persiapan darurat saat tinggal di daerah yang dekat dengan Gunung Merapi?',
             type: 1,
           ),
         ],
@@ -1724,7 +1819,8 @@ List<Quiz> getQuizs = [
       Question(
         contents: [
           QuestionContent(
-            content: 'Apa yang bisa dilakukan untuk membantu masyarakat yang terdampak erupsi Gunung Merapi?',
+            content:
+                'Apa yang bisa dilakukan untuk membantu masyarakat yang terdampak erupsi Gunung Merapi?',
             type: 1,
           ),
         ],
