@@ -55,8 +55,18 @@ flutter:
     - family: Knewave
       fonts:
         - asset: assets/fonts/Knewave-Regular.ttf
+    - family: Sans
+      fonts:
+        - asset: assets/fonts/Sans-Regular.ttf
+    - family: Gurajada
+      fonts:
+        - asset: assets/fonts/Lunasima-Bold.ttf
+    - family: Bubblegum
+      fonts:
+        - asset: assets/fonts/BubblegumSans-Regular.ttf
   assets:
     - assets/images/intro.gif
+    - assets/images/splash.png
     - assets/images/logo.jpg
     - assets/images/logo.png
     - assets/images/close.png

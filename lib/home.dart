@@ -146,7 +146,7 @@ class Home extends StatelessWidget {
                       text: 'Aplikasi Edukasi dan Mitigasi Bencana',
                       textStyle: TextStyle(
                           fontSize: 16,
-                          fontFamily: 'Inter',
+                          fontFamily: 'Sans',
                           fontWeight: FontWeight.bold,
                           color: Colors.black),
                       strokeWidth: 4,
@@ -181,8 +181,7 @@ class Home extends StatelessWidget {
                               decoration: TextDecoration.underline,
                               decorationColor: Color(0xFF930000),
                               color: Colors.black,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.bold),
+                              fontFamily: 'Gurajada'),
                         ),
                       ),
                       Container(
@@ -251,8 +250,7 @@ class Home extends StatelessWidget {
                                   decoration: TextDecoration.underline,
                                   decorationColor: Color(0xFF930000),
                                   color: Colors.black,
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.bold),
+                                  fontFamily: 'Gurajada'),
                             ),
                             Container(
                               // Menu Item

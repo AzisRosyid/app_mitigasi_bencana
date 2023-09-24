@@ -59,10 +59,19 @@ class _SplashScreenState extends State<SplashScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+          Container(
+            width: 90,
+            child: Image.asset(
+              'assets/images/splash.png', 
+              fit: BoxFit
+                  .contain, 
+            ),
+          ),
             Text(
               'Edu MIT',
               style: TextStyle(
                 fontSize: 40,
+                height: 1.3,
                 color: Colors.white,
                 fontFamily: 'Knewave',
               ),
@@ -75,8 +84,11 @@ class _SplashScreenState extends State<SplashScreen>
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.white,
-                fontFamily: 'Inter',
+                fontFamily: 'Bubblegum',
               ),
+            ),
+            SizedBox(
+              height: 50,
             )
           ],
         ),
@@ -173,6 +185,9 @@ Future<void> _getLocation() async {
             width: MediaQuery.of(context).size.width, // Fit the width of the device
             fit: BoxFit.contain, // Maintain aspect ratio and fit within the width
           ),
+            SizedBox(
+              height: 70,
+            )
           ],
         ),
       ),
